@@ -30,10 +30,10 @@
     eslint-plugin-spellcheck "^0"
     eslint-plugin-tsdoc "^0"
 
-"@alexseitsinger/react-viewport-container@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@alexseitsinger/react-viewport-container/-/react-viewport-container-0.4.0.tgz#0674f2039456aa8241d5081b7afb309f09b5b5bb"
-  integrity sha512-FuEcC7b5LwivfmuOBD/gQDXJhr6uqgqSM9+IW88d3A+XYrghGqSOkUnGZjqfongjHTvlk9pKO2rwBF9CHydIww==
+"@alexseitsinger/react-viewport-container@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@alexseitsinger/react-viewport-container/-/react-viewport-container-0.4.1.tgz#fdb098b087b84933ec246dd67937b4fe5b1cb57c"
+  integrity sha512-gNjmahonWraqVfyeoMMmGvGROup9CHrSAdkFYSfTVbgdqKRhnjahVndZ1NHzGiIeE//XoYO43IhL7EKC8fjW6A==
   dependencies:
     "@babel/runtime-corejs3" "7.8.4"
     "@emotion/core" "^10.0.27"
