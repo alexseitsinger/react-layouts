@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/alexseitsinger/react-fixed-header-layout",
   "dependencies": {
-    "@alexseitsinger/react-viewport-container": "^0.4.2",
+    "@alexseitsinger/react-viewport-container": "^0.4.3",
     "@babel/runtime-corejs3": "7.8.4",
     "@emotion/core": "10.0.27",
     "@emotion/styled": "10.0.27",
