@@ -16,8 +16,9 @@ const hasGlobalNamedGlobal = globalName === "[object global]"
 const hasProcess = typeof process !== "undefined"
 const processName = hasProcess ? {}.toString.call(process) : ""
 const hasProcessNamedProcess = processName === "[object process]"
-const hasProcessRelease = typeof process.release !== "undefined"
-const hasProcessReleaseName = typeof process.release.name !== "undefined"
+const hasProcessRelease = hasProcess && typeof process.release !== "undefined"
+const hasProcessReleaseName =
+  hasProcessRelease && typeof process.release.name !== "undefined"
 const hasProcessReleaseNamedNode =
   hasProcess &&
   hasProcessNamedProcess &&
@@ -26,19 +27,22 @@ const hasProcessReleaseNamedNode =
   process.release.name === "node"
 
 const hasModule = typeof module !== "undefined"
-const hasModuleExports = typeof module.exports !== "undefined"
+const hasModuleExports = hasModule && typeof module.exports !== "undefined"
 
 const hasWindow = typeof window !== "undefined"
 const hasDocument = typeof document !== "undefined"
 
-export const isNode: boolean =
+const thisName = {}.toString.call(this)
+const thisNamedWindow = thisName === "[object Window]"
+
+export const isNode =
   hasGlobal &&
   (hasGlobalNamedGlobal || hasGlobalNamedWindow) &&
   hasProcessReleaseNamedNode &&
   hasModule &&
   hasModuleExports
 
-export const isBrowser: boolean = hasWindow && hasDocument && !isNode
+export const isBrowser = !isNode && hasWindow && hasDocument && thisNamedWindow
 
 export const isNullish = (o?: any): boolean => {
   return typeof o === "undefined" || o === null
