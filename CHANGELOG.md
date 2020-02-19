@@ -1,3 +1,10 @@
+<a name="v0.1.3"></a>
+## [v0.1.3](https://github.com/alexseitsinger/react-fixed-header-layout/compare/v0.1.2...v0.1.3) (2020-02-19)
+
+### Bug Fixes
+- Adds missing undef checks. ([40e7ff8](https://github.com/alexseitsinger/react-fixed-header-layout/commit/40e7ff8170d4d1d393c7d3df38a8dccf9f76cfd8))
+
+
 <a name="v0.1.2"></a>
 ## [v0.1.2](https://github.com/alexseitsinger/react-fixed-header-layout/compare/v0.1.1...v0.1.2) (2020-02-19)
 
