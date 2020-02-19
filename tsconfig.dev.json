@@ -21,17 +21,16 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"],
-      "tests/*": ["tests/*"]
+      "src/*": ["src/*"]
     }
   },
   "include": [
-    "src",
-    "tests"
+    "src"
   ],
   "exclude": [
     "node_modules",
     ".yalc",
-    "dist"
+    "dist",
+    "tests"
   ]
 }
