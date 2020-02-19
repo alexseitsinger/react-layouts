@@ -2,9 +2,9 @@
   "compilerOptions": {
     "noEmitOnError": true,
     "noErrorTruncation": true,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "removeComments": true,
