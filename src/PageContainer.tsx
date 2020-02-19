@@ -12,6 +12,6 @@ interface Props {
 
 export const PageContainer = withFixedHeaderLayout(
   ({ mainHeight, children }: Props): ReactElement => (
-    <Container css={{ height: mainHeight }}>{children}</Container>
+    <Container css={{ minHeight: mainHeight }}>{children}</Container>
   )
 )

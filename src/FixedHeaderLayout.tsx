@@ -1,47 +1,51 @@
-import React, { ReactElement } from "react"
-import { withViewport } from "@alexseitsinger/react-viewport-container"
+import React, { Component, ReactElement } from "react"
 import { CSSObject } from "@emotion/core"
 import { debounce, isEqual } from "underscore"
 
 import { Context } from "./context"
 import { FixedHeader } from "./FixedHeader"
+import { isBrowser } from "./utils"
 
 interface Props {
   renderBody: () => React.ReactElement;
   renderHeader: () => React.ReactElement;
-  headerStyle: CSSObject;
-  initialHeight: string;
-  viewportHeight: string;
-  viewportWidth: string;
+  headerStyle?: CSSObject;
+  initialViewportHeight: string;
+  initialHeaderHeight: string;
 }
 
 interface State {
-  fullHeight: string;
-  mainHeight: string;
+  viewportHeight: string;
   headerHeight: string;
+  mainHeight: string;
 }
 
-class FixedHeaderLayoutProvider extends React.Component<Props, State> {
+export class FixedHeaderLayout extends Component<Props, State> {
   state: State = {
-    fullHeight: "0px",
+    viewportHeight: "0px",
     mainHeight: "0px",
     headerHeight: "0px",
   }
 
-  handleResize = debounce((nextHeight?: string) => {
-    this.updateHeights(nextHeight)
-  }, 500)
+  handleResize = debounce((): void => {
+    this.updateHeights()
+  }, 1000)
 
   componentDidMount(): void {
+    if (isBrowser) {
+      window.addEventListener("resize", this.handleResize)
+    }
     this.updateHeights()
   }
 
-  componentDidUpdate(): void {
-    this.updateHeights()
+  componentWillUnmount(): void {
+    if (isBrowser) {
+      window.addEventListener("resize", this.handleResize)
+    }
   }
 
-  updateHeights = (headerHeight?: string): void => {
-    const heights = this.getHeights(headerHeight)
+  updateHeights = (nextHeaderHeight?: string): void => {
+    const heights = this.createHeights(nextHeaderHeight)
     if (isEqual(this.state, heights)) {
       return
     }
@@ -49,22 +53,23 @@ class FixedHeaderLayoutProvider extends React.Component<Props, State> {
   }
 
   getMainHeight = (headerHeight?: string): string => {
-    const { viewportHeight, initialHeight } = this.props
+    const { initialHeaderHeight } = this.props
+    const viewportHeight = this.getViewportHeight()
     const viewportSize = parseInt(viewportHeight)
     let size: number
     if (headerHeight !== undefined) {
       const headerSize = parseInt(headerHeight)
       size = Math.max(0, viewportSize - headerSize)
     } else {
-      const initialSize = parseInt(initialHeight)
+      const initialSize = parseInt(initialHeaderHeight)
       size = Math.max(0, viewportSize - initialSize)
     }
     return `${size}px`
   }
 
   getHeaderHeight = (newSize?: string): string => {
-    const { initialHeight } = this.props
-    let size = parseInt(initialHeight)
+    const { initialHeaderHeight } = this.props
+    let size = parseInt(initialHeaderHeight)
     if (newSize !== undefined) {
       size = parseInt(newSize)
     }
@@ -72,46 +77,67 @@ class FixedHeaderLayoutProvider extends React.Component<Props, State> {
     return `${size}px`
   }
 
-  getHeights = (nextHeaderHeight?: string): State => {
-    if (this.stateHasHeights()) {
-      return this.state
+  getViewportHeight = (): string => {
+    if (isBrowser) {
+      const el = document.documentElement
+      const size = el.clientHeight
+      return `${size}px`
     }
-    const { viewportHeight } = this.props
+    const { initialViewportHeight } = this.props
+    return initialViewportHeight
+  }
+
+  createHeights = (nextHeaderHeight?: string): State => {
+    const viewportHeight = this.getViewportHeight()
     const headerHeight = this.getHeaderHeight(nextHeaderHeight)
     const mainHeight = this.getMainHeight(headerHeight)
     return {
-      fullHeight: viewportHeight,
-      headerHeight: headerHeight,
+      viewportHeight,
+      headerHeight,
       mainHeight,
     }
   }
 
   stateHasHeights = (): boolean => {
-    const { fullHeight, mainHeight } = this.state
-    const fullHeightZero = fullHeight === "0px"
-    const mainHeightZero = mainHeight === "0px"
-    return !(fullHeightZero && mainHeightZero)
+    const { viewportHeight, mainHeight } = this.state
+    const viewportValue = parseInt(viewportHeight)
+    const mainValue = parseInt(mainHeight)
+    if (viewportValue === 0 || mainValue === 0) {
+      return false
+    }
+    return true
+  }
+
+  getContextValue = (): State => {
+    if (this.stateHasHeights()) {
+      const { viewportHeight } = this.state
+      const { initialViewportHeight } = this.props
+      if (!isBrowser || viewportHeight !== initialViewportHeight) {
+        return this.state
+      }
+    }
+    return this.createHeights()
   }
 
   render(): ReactElement {
-    const { headerStyle, initialHeight, renderHeader, renderBody } = this.props
-    const currentHeights = this.getHeights()
-
+    const {
+      headerStyle,
+      initialHeaderHeight,
+      renderHeader,
+      renderBody,
+    } = this.props
+    const value = this.getContextValue()
     return (
       <>
         <FixedHeader
-          initialHeight={initialHeight}
-          fixedHeight={currentHeights.headerHeight}
+          initialHeight={initialHeaderHeight}
+          fixedHeight={value.headerHeight}
           onUpdateHeight={this.handleResize}
           styles={headerStyle}>
           {renderHeader()}
         </FixedHeader>
-        <Context.Provider value={currentHeights}>
-          {renderBody()}
-        </Context.Provider>
+        <Context.Provider value={value}>{renderBody()}</Context.Provider>
       </>
     )
   }
 }
-
-export const FixedHeaderLayout = withViewport(FixedHeaderLayoutProvider)

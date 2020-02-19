@@ -6,7 +6,7 @@ import { isBrowser, isDefined } from "./utils"
 
 interface Props {
   children: React.ReactNode | React.ReactNode[];
-  styles: CSSObject;
+  styles?: CSSObject;
   initialHeight: string;
   fixedHeight: string;
   onUpdateHeight: (h: string) => void;
