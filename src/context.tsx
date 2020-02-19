@@ -7,9 +7,9 @@ export interface ContextProps {
 }
 
 const defaultContext: ContextProps = {
-  headerHeight: "",
-  mainHeight: "",
-  fullHeight: "",
+  headerHeight: "0px",
+  mainHeight: "0px",
+  fullHeight: "0px",
 }
 
 export const Context = React.createContext(defaultContext)

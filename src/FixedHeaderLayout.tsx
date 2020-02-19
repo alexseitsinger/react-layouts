@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 import { withViewport } from "@alexseitsinger/react-viewport-container"
 import { CSSObject } from "@emotion/core"
-import { isEqual } from "underscore"
+import { debounce, isEqual } from "underscore"
 
 import { Context } from "./context"
 import { FixedHeader } from "./FixedHeader"
@@ -12,6 +12,7 @@ interface Props {
   headerStyle: CSSObject;
   initialHeight: string;
   viewportHeight: string;
+  viewportWidth: string;
 }
 
 interface State {
@@ -22,16 +23,24 @@ interface State {
 
 class FixedHeaderLayoutProvider extends React.Component<Props, State> {
   state: State = {
-    fullHeight: "",
-    mainHeight: "",
-    headerHeight: "",
+    fullHeight: "0px",
+    mainHeight: "0px",
+    headerHeight: "0px",
   }
+
+  handleResize = debounce((nextHeight?: string) => {
+    this.updateHeights(nextHeight)
+  }, 500)
 
   componentDidMount(): void {
-    this.handleResize()
+    this.updateHeights()
   }
 
-  handleResize = (headerHeight?: string): void => {
+  componentDidUpdate(): void {
+    this.updateHeights()
+  }
+
+  updateHeights = (headerHeight?: string): void => {
     const heights = this.getHeights(headerHeight)
     if (isEqual(this.state, heights)) {
       return
@@ -42,18 +51,33 @@ class FixedHeaderLayoutProvider extends React.Component<Props, State> {
   getMainHeight = (headerHeight?: string): string => {
     const { viewportHeight, initialHeight } = this.props
     const viewportSize = parseInt(viewportHeight)
+    let size: number
     if (headerHeight !== undefined) {
-      return `${viewportSize - parseInt(headerHeight)}px`
+      const headerSize = parseInt(headerHeight)
+      size = Math.max(0, viewportSize - headerSize)
+    } else {
+      const initialSize = parseInt(initialHeight)
+      size = Math.max(0, viewportSize - initialSize)
     }
-    return `${viewportSize - parseInt(initialHeight)}px`
+    return `${size}px`
+  }
+
+  getHeaderHeight = (newSize?: string): string => {
+    const { initialHeight } = this.props
+    let size = parseInt(initialHeight)
+    if (newSize !== undefined) {
+      size = parseInt(newSize)
+    }
+    size = Math.max(0, size)
+    return `${size}px`
   }
 
   getHeights = (nextHeaderHeight?: string): State => {
-    const { initialHeight, viewportHeight } = this.props
-    let headerHeight = initialHeight
-    if (nextHeaderHeight !== undefined) {
-      headerHeight = nextHeaderHeight
+    if (this.stateHasHeights()) {
+      return this.state
     }
+    const { viewportHeight } = this.props
+    const headerHeight = this.getHeaderHeight(nextHeaderHeight)
     const mainHeight = this.getMainHeight(headerHeight)
     return {
       fullHeight: viewportHeight,
@@ -62,21 +86,30 @@ class FixedHeaderLayoutProvider extends React.Component<Props, State> {
     }
   }
 
+  stateHasHeights = (): boolean => {
+    const { fullHeight, mainHeight } = this.state
+    const fullHeightZero = fullHeight === "0px"
+    const mainHeightZero = mainHeight === "0px"
+    return !(fullHeightZero && mainHeightZero)
+  }
+
   render(): ReactElement {
     const { headerStyle, initialHeight, renderHeader, renderBody } = this.props
-    const { headerHeight } = this.state
+    const currentHeights = this.getHeights()
 
     return (
-      <Context.Provider value={this.state}>
+      <>
         <FixedHeader
           initialHeight={initialHeight}
-          fixedHeight={headerHeight}
+          fixedHeight={currentHeights.headerHeight}
           onUpdateHeight={this.handleResize}
           styles={headerStyle}>
           {renderHeader()}
         </FixedHeader>
-        {renderBody()}
-      </Context.Provider>
+        <Context.Provider value={currentHeights}>
+          {renderBody()}
+        </Context.Provider>
+      </>
     )
   }
 }

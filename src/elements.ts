@@ -1,6 +1,8 @@
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
+export const Container = styled.div``
+
 /**
  * NOTE: SimpleModal uses 100/101 as the zIndex, so make sure this zIndex is
  * always less than that. and above any other zIndex.
