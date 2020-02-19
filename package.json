@@ -33,7 +33,6 @@
   },
   "homepage": "https://github.com/alexseitsinger/react-fixed-header-layout",
   "dependencies": {
-    "@alexseitsinger/react-viewport-container": "^0.4.3",
     "@babel/runtime-corejs3": "7.8.4",
     "@emotion/core": "10.0.27",
     "@emotion/styled": "10.0.27",
@@ -42,7 +41,7 @@
     "underscore": "^1.9.2"
   },
   "devDependencies": {
-    "@alexseitsinger/eslint-config": "^2.15.0",
+    "@alexseitsinger/eslint-config": "^2.17.0",
     "@babel/core": "7.8.4",
     "@babel/plugin-proposal-class-properties": "7.8.3",
     "@babel/plugin-proposal-export-default-from": "7.8.3",

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@alexseitsinger/eslint-config@^2.15.0":
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/@alexseitsinger/eslint-config/-/eslint-config-2.15.0.tgz#fd61a8c34300df8730f1e0da561f6e921c70a0ff"
-  integrity sha512-bDpigGLECzTibLusl119mifkRAJAPTj3RFyJ1YjtcGeaxOIZ23Xs4BGkdJmZsP2tT6/POF0DyB304D7JzjWvOA==
+"@alexseitsinger/eslint-config@^2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@alexseitsinger/eslint-config/-/eslint-config-2.17.0.tgz#5b4bb33388a23ffff3032d6d927e24b46898a01a"
+  integrity sha512-Oytyv19a6gpXpBi3gBSLFCgqkCw8T11+idIqm6UIv/C19FWotbFI5lgBfdwwI3zwSHzeWwuwzG+5zKyYVuJQMQ==
   dependencies:
     confusing-browser-globals "^1.0.7"
   optionalDependencies:
@@ -29,18 +29,6 @@
     eslint-plugin-simple-import-sort "*"
     eslint-plugin-spellcheck "^0"
     eslint-plugin-tsdoc "^0"
-
-"@alexseitsinger/react-viewport-container@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@alexseitsinger/react-viewport-container/-/react-viewport-container-0.4.3.tgz#d4446ed697c432752f3d4744f5674c0191a3f407"
-  integrity sha512-4pAxOvu9djN0BHBDf8g3n7VeVJ/DCzOCIbymbdkE9XKeBq+PgdphkWNxRjzql5uWH63EXb/TyLu94wa167i2FA==
-  dependencies:
-    "@babel/runtime-corejs3" "7.8.4"
-    "@emotion/core" "^10.0.27"
-    "@emotion/styled" "^10.0.27"
-    core-js "3.6.4"
-    prop-types "15.7.2"
-    underscore "^1.9.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
@@ -952,7 +940,7 @@
     "@emotion/utils" "0.11.3"
     "@emotion/weak-memoize" "0.2.5"
 
-"@emotion/core@10.0.27", "@emotion/core@^10.0.27":
+"@emotion/core@10.0.27":
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.0.27.tgz#7c3f78be681ab2273f3bf11ca3e2edc4a9dd1fdc"
   integrity sha512-XbD5R36pVbohQMnKfajHv43g8EbN4NHdF6Zh9zg/C0nr0jqwOw3gYnC07Xj3yG43OYSRyrGsoQ5qPwc8ycvLZw==
@@ -1021,7 +1009,7 @@
     "@emotion/serialize" "^0.11.15"
     "@emotion/utils" "0.11.3"
 
-"@emotion/styled@10.0.27", "@emotion/styled@^10.0.27":
+"@emotion/styled@10.0.27":
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-10.0.27.tgz#12cb67e91f7ad7431e1875b1d83a94b814133eaf"
   integrity sha512-iK/8Sh7+NLJzyp9a5+vIQIXTYxfT4yB/OJbjzQanB2RZpvmzBQOHZWhpAMZWYEKRNNbsD6WfBw5sVWkb6WzS/Q==
