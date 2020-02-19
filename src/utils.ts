@@ -9,9 +9,6 @@
  */
 
 const hasGlobal = typeof global !== "undefined"
-const globalName = hasGlobal ? {}.toString.call(global) : ""
-const hasGlobalNamedWindow = globalName === "[object Window]"
-const hasGlobalNamedGlobal = globalName === "[object global]"
 
 const hasProcess = typeof process !== "undefined"
 const processName = hasProcess ? {}.toString.call(process) : ""
@@ -26,23 +23,12 @@ const hasProcessReleaseNamedNode =
   hasProcessReleaseName &&
   process.release.name === "node"
 
-const hasModule = typeof module !== "undefined"
-const hasModuleExports = hasModule && typeof module.exports !== "undefined"
-
 const hasWindow = typeof window !== "undefined"
 const hasDocument = typeof document !== "undefined"
 
-const thisName = {}.toString.call(this)
-const thisNamedWindow = thisName === "[object Window]"
+export const isNode = hasGlobal && hasProcessReleaseNamedNode
 
-export const isNode =
-  hasGlobal &&
-  (hasGlobalNamedGlobal || hasGlobalNamedWindow) &&
-  hasProcessReleaseNamedNode &&
-  hasModule &&
-  hasModuleExports
-
-export const isBrowser = !isNode && hasWindow && hasDocument && thisNamedWindow
+export const isBrowser = !isNode && hasWindow && hasDocument
 
 export const isNullish = (o?: any): boolean => {
   return typeof o === "undefined" || o === null
