@@ -15,12 +15,13 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2015"],
-    "target": "es2015",
+    "lib": ["dom", "es2016"],
+    "target": "es2016",
     "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
+      "src": ["src"],
       "src/*": ["src/*"]
     }
   },
