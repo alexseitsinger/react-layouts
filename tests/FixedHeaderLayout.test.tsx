@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { ReactElement } from "react"
-import { ViewportProvider } from "@alexseitsinger/react-viewport-container"
 import { jsx } from "@emotion/core"
 import styled from "@emotion/styled"
 import { mount } from "enzyme"
@@ -8,13 +7,11 @@ import { matchers } from "jest-emotion"
 
 expect.extend(matchers)
 
-import {
-  FixedHeader,
-  FixedHeaderLayout,
-  PageContainer,
-  withFixedHeaderLayout,
-} from "src"
 import { Container, HeaderInner } from "src/elements"
+import { FixedHeader } from "src/FixedHeader"
+import { FixedHeaderLayout } from "src/FixedHeaderLayout"
+import { PageContainer } from "src/PageContainer"
+import { withFixedHeaderLayout } from "src/withFixedHeaderLayout"
 
 function HeaderBody(): ReactElement {
   return <div>Header</div>
@@ -26,25 +23,26 @@ describe("FixedHeaderLayout", () => {
 
     interface PageBodyProps {
       mainHeight: string;
-      fullHeight: string;
+      viewportHeight: string;
     }
 
     const PageBody = withFixedHeaderLayout(
-      ({ mainHeight, fullHeight }: PageBodyProps): ReactElement => {
+      ({ mainHeight, viewportHeight }: PageBodyProps): ReactElement => {
         return (
-          <Body css={{ height: mainHeight, maxHeight: fullHeight }}>Body</Body>
+          <Body css={{ height: mainHeight, maxHeight: viewportHeight }}>
+            Body
+          </Body>
         )
       }
     )
 
     const App = (): ReactElement => (
-      <ViewportProvider initialHeight={"600px"} initialWidth={"600px"}>
-        <FixedHeaderLayout
-          initialHeight={"40px"}
-          renderHeader={(): ReactElement => <HeaderBody />}
-          renderBody={(): ReactElement => <PageBody />}
-        />
-      </ViewportProvider>
+      <FixedHeaderLayout
+        initialViewportHeight={"600px"}
+        initialHeaderHeight={"40px"}
+        renderHeader={(): ReactElement => <HeaderBody />}
+        renderBody={(): ReactElement => <PageBody />}
+      />
     )
 
     const wrapper = mount(<App />)
@@ -58,19 +56,16 @@ describe("FixedHeaderLayout", () => {
 
   it("should render page container with the remaining viewport height", () => {
     const App = (): ReactElement => (
-      <ViewportProvider initialHeight={"600px"} initialWidth={"600px"}>
-        <FixedHeaderLayout
-          initialHeight={"40px"}
-          renderHeader={(): ReactElement => <HeaderBody />}
-          renderBody={(): ReactElement => (
-            <PageContainer>Content</PageContainer>
-          )}
-        />
-      </ViewportProvider>
+      <FixedHeaderLayout
+        initialViewportHeight={"600px"}
+        initialHeaderHeight={"40px"}
+        renderHeader={(): ReactElement => <HeaderBody />}
+        renderBody={(): ReactElement => <PageContainer>Content</PageContainer>}
+      />
     )
 
     const wrapper = mount(<App />)
 
-    expect(wrapper.find(Container)).toHaveStyleRule("height", "560px")
+    expect(wrapper.find(Container)).toHaveStyleRule("min-height", "560px")
   })
 })
