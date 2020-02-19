@@ -1,9 +1,9 @@
 # Fixed Header Layout
 
-DOM container that renders a fixed header alongside a body container. Dimensions
-are shared as props (through private context) for easy access by other
-components elsewhere. Layout will re-render using new dimensions upon each
-resize.
+DOM container that renders a fixed header alongside a body container. Dimensions are shared as props (through private
+context) for easy access by other components elsewhere. Layout will re-render using new dimensions upon each resize.
+Requires the use of [React Viewport Container](https://github.com/alexseitsinger/react-viewport-container) in order to
+find the dimensions for the layout.
 
 ## Installation
 
@@ -29,16 +29,21 @@ renderBody    | Invoked to render the body of the page.                  | undef
 ###### Example
 
 ```javascript
+import { ViewportProvider } from "@alexseitsinger/react-viewport-container"
+import { FixedHeaderLayout } from "@alexseitsinger/react-fixed-header-layout"
+
 function App(props) {
   return (
-    <FixedHeaderLayout
-      initialHeight={"40px"}
-      headerStyle={{
-        //...extra styles to apply to header.
-      }}
-      renderHeader={() => <MyCustomHeaderBody />}
-      renderBody={() => <MyPageBody />}
-    />
+    <ViewportProvider initialHeight={"600px"} initialWidth={"600px"}>
+      <FixedHeaderLayout
+        initialHeight={"40px"}
+        headerStyle={{
+          //...extra styles to apply to header.
+        }}
+        renderHeader={() => <MyCustomHeaderBody />}
+        renderBody={() => <MyPageBody />}
+      />
+    </ViewportProvider>
   )
 }
 ```
@@ -50,6 +55,8 @@ HOC to serve the dimensions of the layout to other components as props.
 ###### Example
 
 ```javascript
+import { withFixedHeaderLayout } from "@alexseitsinger/react-fixed-header-layout"
+
 const HomePage = withFixedHeaderLayout(({
   mainHeight,
   headerHeight,
@@ -67,6 +74,8 @@ already used internally, but exposed in case its needed somewhere else.
 ###### Example
 
 ```javascript
+import { FixedHeaderLayoutContext } from "@alexseitsinger/react-fixed-header-layout"
+
 const Component = (props) => (
   <FixedHeaderContext.Consumer>
     {({ mainHeight, headerHeight, fullHeight }) => (
