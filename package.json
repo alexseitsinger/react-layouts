@@ -1,6 +1,6 @@
 {
   "name": "@alexseitsinger/react-fixed-header-layout",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "DOM layout that uses a fixed header",
   "main": "index.js",
   "types": "dist/types/index.d.ts",
