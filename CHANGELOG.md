@@ -1,3 +1,13 @@
+<a name="v0.1.4"></a>
+## [v0.1.4](https://github.com/alexseitsinger/react-fixed-header-layout/compare/v0.1.3...v0.1.4) (2020-02-19)
+
+### Bug Fixes
+- Fixes isNode & isBrowser. ([bf4c8b1](https://github.com/alexseitsinger/react-fixed-header-layout/commit/bf4c8b191bb8e9d24dd3996dd3fbae7b990c389c))
+
+### Code Refactoring
+- Removes dependency to viewport pkg. ([f18a7a3](https://github.com/alexseitsinger/react-fixed-header-layout/commit/f18a7a350a6b6f739e6e540e2410b430d29d484c))
+
+
 <a name="v0.1.3"></a>
 ## [v0.1.3](https://github.com/alexseitsinger/react-fixed-header-layout/compare/v0.1.2...v0.1.3) (2020-02-19)
 
