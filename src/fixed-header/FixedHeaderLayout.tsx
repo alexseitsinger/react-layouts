@@ -134,8 +134,14 @@ export class FixedHeaderLayout extends Component<Props, State> {
   getContextValue = (): State => {
     if (this.stateHasHeights()) {
       const { viewportHeight } = this.state
+      const viewportHeightValue = parseInt(viewportHeight)
       const { initialViewportHeight } = this.props
-      if (!isBrowser || viewportHeight !== initialViewportHeight) {
+      const initialViewportHeightValue = parseInt(initialViewportHeight)
+      if (
+        !isBrowser ||
+        (viewportHeight !== initialViewportHeight &&
+          viewportHeightValue > initialViewportHeightValue)
+      ) {
         return this.state
       }
     }
