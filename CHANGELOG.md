@@ -1,3 +1,17 @@
+<a name="v1.0.1"></a>
+## [v1.0.1](https://github.com/alexseitsinger/react-layouts/compare/v1.0.0...v1.0.1) (2020-02-20)
+
+### Bug Fixes
+- Only returns state if height is greater. ([ad44cbc](https://github.com/alexseitsinger/react-layouts/commit/ad44cbc32a20c8918742de250def61618beeac24))
+- Prevents memory leaks from debounced. ([25665de](https://github.com/alexseitsinger/react-layouts/commit/25665de3d1146b77e570f9fc0f32801c9e0236fe))
+- Uses state as source of truth directly. ([8646865](https://github.com/alexseitsinger/react-layouts/commit/8646865bed66fee166a47bc7598d67ad8d85853c))
+
+### Features
+- Adds optional css. ([bfb5607](https://github.com/alexseitsinger/react-layouts/commit/bfb56078d02a1385f556619ef73d022d69560907))
+- Adds resize event handler. ([4131e0c](https://github.com/alexseitsinger/react-layouts/commit/4131e0c3c83cc96962760d528b1d0974d2df5400))
+- Adds zIndex for Fixed element. ([af1d675](https://github.com/alexseitsinger/react-layouts/commit/af1d675f77c17b775204a13264944a54f2cbb8e8))
+
+
 <a name="v1.0.0"></a>
 ## [v1.0.0](https://github.com/alexseitsinger/react-layouts/compare/v0.1.4...v1.0.0) (2020-02-20)
 
