@@ -32,7 +32,10 @@ describe("SidebarLayout", () => {
     expect(wrapper.find("#header")).toHaveLength(1)
     expect(wrapper.find(SidebarLayout)).toHaveLength(1)
     expect(wrapper.find("#sidebar")).toHaveLength(1)
-    expect(wrapper.find(SidebarContainer)).toHaveStyleRule("width", "300px")
+    expect(wrapper.find(SidebarContainer)).toHaveStyleRule(
+      "margin-right",
+      "300px"
+    )
     expect(wrapper.find(SidebarVoid)).toHaveStyleRule("height", "40px")
     expect(wrapper.find(SidebarFixed)).toHaveStyleRule("width", "300px")
     expect(wrapper.find("#body")).toHaveLength(1)
