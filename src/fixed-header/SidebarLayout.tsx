@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react"
+import { CSSObject } from "@emotion/core"
 
 import {
   SidebarBody,
@@ -16,6 +17,9 @@ interface Props {
   viewportHeight: string;
   sidebarWidth: string;
   children: ReactNode | ReactNode[];
+  containerStyle: CSSObject;
+  voidStyle: CSSObject;
+  bodyStyle: CSSObject;
 }
 
 export const SidebarLayout = withFixedHeaderLayout(
@@ -25,12 +29,17 @@ export const SidebarLayout = withFixedHeaderLayout(
     headerHeight,
     mainHeight,
     sidebarWidth,
+    containerStyle,
+    voidStyle,
+    bodyStyle,
   }: Props): React.ReactElement => (
-    <SidebarContainer sidebarWidth={sidebarWidth}>
+    <SidebarContainer sidebarWidth={sidebarWidth} css={containerStyle}>
       <PageContainer>{children}</PageContainer>
       <SidebarFixed sidebarWidth={sidebarWidth}>
-        <SidebarVoid headerHeight={headerHeight} />
-        <SidebarBody mainHeight={mainHeight}>{renderSidebar()}</SidebarBody>
+        <SidebarVoid headerHeight={headerHeight} css={voidStyle} />
+        <SidebarBody mainHeight={mainHeight} css={bodyStyle}>
+          {renderSidebar()}
+        </SidebarBody>
       </SidebarFixed>
     </SidebarContainer>
   )
