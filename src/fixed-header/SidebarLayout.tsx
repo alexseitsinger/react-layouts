@@ -6,6 +6,7 @@ import {
   SidebarFixed,
   SidebarVoid,
 } from "./elements"
+import { PageContainer } from "./PageContainer"
 import { withFixedHeaderLayout } from "./withFixedHeaderLayout"
 
 interface Props {
@@ -26,7 +27,7 @@ export const SidebarLayout = withFixedHeaderLayout(
     sidebarWidth,
   }: Props): React.ReactElement => (
     <SidebarContainer sidebarWidth={sidebarWidth}>
-      {children}
+      <PageContainer>{children}</PageContainer>
       <SidebarFixed sidebarWidth={sidebarWidth}>
         <SidebarVoid headerHeight={headerHeight} />
         <SidebarBody mainHeight={mainHeight}>{renderSidebar()}</SidebarBody>

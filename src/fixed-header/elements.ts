@@ -3,7 +3,6 @@ import styled from "@emotion/styled"
 
 export const Container = styled.div`
   position: relative;
-  display: flex;
 `
 
 /**
@@ -64,10 +63,9 @@ interface SidebarContainerProps {
 }
 
 export const SidebarContainer = styled.div`
-  display: flex;
   ${({ sidebarWidth }: SidebarContainerProps): any => {
     return css`
-      width: ${sidebarWidth};
+      margin-right: ${sidebarWidth};
     `
   }}
 `
