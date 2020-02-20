@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from "react"
-import { isEqual } from "underscore"
+import { debounce, isEqual } from "underscore"
 
 import { isBrowser } from "../utils"
 
@@ -22,8 +22,40 @@ export class ViewportProvider extends React.Component<Props, State> {
     viewportWidth: "0px",
   }
 
-  componentDidMount(): void {
+  isMountedNow = false
+
+  handleResize = debounce(() => {
     this.updateSizes()
+  }, 700)
+
+  constructor(props: Props) {
+    super(props)
+
+    const realSetState = this.setState.bind(this)
+    this.setState = (...args): void => {
+      if (!this.isMountedNow) {
+        return
+      }
+      realSetState(...args)
+    }
+  }
+
+  componentDidMount(): void {
+    this.isMountedNow = true
+
+    if (isBrowser) {
+      window.addEventListener("resize", this.handleResize)
+    }
+
+    this.updateSizes()
+  }
+
+  componentWillUnmount(): void {
+    this.isMountedNow = false
+
+    if (isBrowser) {
+      window.removeEventListener("resize", this.handleResize)
+    }
   }
 
   updateSizes = (): void => {
