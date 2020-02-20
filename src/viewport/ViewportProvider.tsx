@@ -50,6 +50,10 @@ export class ViewportProvider extends React.Component<Props, State> {
     this.updateSizes()
   }
 
+  componentDidUpdate(): void {
+    this.updateSizes()
+  }
+
   componentWillUnmount(): void {
     this.isMountedNow = false
 
@@ -98,16 +102,8 @@ export class ViewportProvider extends React.Component<Props, State> {
     }
   }
 
-  getContextValue = (): State => {
-    if (this.state.viewportHeight === "0px") {
-      return this.createSizes()
-    }
-    return this.state
-  }
-
   render(): ReactElement {
     const { children } = this.props
-    const value = this.getContextValue()
-    return <Context.Provider value={value}>{children}</Context.Provider>
+    return <Context.Provider value={this.state}>{children}</Context.Provider>
   }
 }

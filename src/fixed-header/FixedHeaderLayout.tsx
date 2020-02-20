@@ -30,7 +30,7 @@ export class FixedHeaderLayout extends Component<Props, State> {
 
   handleResize = debounce((): void => {
     this.updateHeights()
-  }, 1000)
+  }, 600)
 
   isMountedNow = false
 
@@ -59,6 +59,10 @@ export class FixedHeaderLayout extends Component<Props, State> {
     this.updateHeights()
   }
 
+  componentDidUpdate(): void {
+    this.updateHeights()
+  }
+
   componentWillUnmount(): void {
     this.isMountedNow = false
 
@@ -75,18 +79,14 @@ export class FixedHeaderLayout extends Component<Props, State> {
     this.setState(heights)
   }
 
-  getMainHeight = (headerHeight?: string): string => {
-    const { initialHeaderHeight } = this.props
-    const viewportHeight = this.getViewportHeight()
+  getMainHeight = (
+    viewportHeight: string,
+    newHeaderHeight?: string
+  ): string => {
     const viewportSize = parseInt(viewportHeight)
-    let size: number
-    if (headerHeight !== undefined) {
-      const headerSize = parseInt(headerHeight)
-      size = Math.max(0, viewportSize - headerSize)
-    } else {
-      const initialSize = parseInt(initialHeaderHeight)
-      size = Math.max(0, viewportSize - initialSize)
-    }
+    const headerHeight = this.getHeaderHeight(newHeaderHeight)
+    const headerSize = parseInt(headerHeight)
+    const size = Math.max(0, viewportSize - headerSize)
     return `${size}px`
   }
 
@@ -101,51 +101,23 @@ export class FixedHeaderLayout extends Component<Props, State> {
   }
 
   getViewportHeight = (): string => {
+    const { initialViewportHeight } = this.props
     if (isBrowser) {
-      const el = document.documentElement
-      const size = el.clientHeight
+      const size = document.documentElement.clientHeight
       return `${size}px`
     }
-    const { initialViewportHeight } = this.props
     return initialViewportHeight
   }
 
   createHeights = (nextHeaderHeight?: string): State => {
     const viewportHeight = this.getViewportHeight()
     const headerHeight = this.getHeaderHeight(nextHeaderHeight)
-    const mainHeight = this.getMainHeight(headerHeight)
+    const mainHeight = this.getMainHeight(viewportHeight, headerHeight)
     return {
       viewportHeight,
       headerHeight,
       mainHeight,
     }
-  }
-
-  stateHasHeights = (): boolean => {
-    const { viewportHeight, mainHeight } = this.state
-    const viewportValue = parseInt(viewportHeight)
-    const mainValue = parseInt(mainHeight)
-    if (viewportValue === 0 || mainValue === 0) {
-      return false
-    }
-    return true
-  }
-
-  getContextValue = (): State => {
-    if (this.stateHasHeights()) {
-      const { viewportHeight } = this.state
-      const viewportHeightValue = parseInt(viewportHeight)
-      const { initialViewportHeight } = this.props
-      const initialViewportHeightValue = parseInt(initialViewportHeight)
-      if (
-        !isBrowser ||
-        (viewportHeight !== initialViewportHeight &&
-          viewportHeightValue > initialViewportHeightValue)
-      ) {
-        return this.state
-      }
-    }
-    return this.createHeights()
   }
 
   render(): ReactElement {
@@ -156,19 +128,19 @@ export class FixedHeaderLayout extends Component<Props, State> {
       children,
     } = this.props
 
-    const value = this.getContextValue()
+    const { headerHeight } = this.state
 
     return (
-      <Context.Provider value={value}>
+      <>
         <FixedHeader
           initialHeight={initialHeaderHeight}
-          fixedHeight={value.headerHeight}
+          fixedHeight={headerHeight}
           onUpdateHeight={this.handleResize}
           styles={headerStyle}>
           {renderHeader()}
         </FixedHeader>
-        {children}
-      </Context.Provider>
+        <Context.Provider value={this.state}>{children}</Context.Provider>
+      </>
     )
   }
 }
