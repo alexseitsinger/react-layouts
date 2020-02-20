@@ -32,14 +32,36 @@ export class FixedHeaderLayout extends Component<Props, State> {
     this.updateHeights()
   }, 1000)
 
+  isMountedNow = false
+
+  constructor(props: Props) {
+    super(props)
+
+    /**
+     * To prevent memory leaks from our debounced update method
+     */
+    const realSetState = this.setState.bind(this)
+    this.setState = (...args): void => {
+      if (!this.isMountedNow) {
+        return
+      }
+      realSetState(...args)
+    }
+  }
+
   componentDidMount(): void {
+    this.isMountedNow = true
+
     if (isBrowser) {
       window.addEventListener("resize", this.handleResize)
     }
+
     this.updateHeights()
   }
 
   componentWillUnmount(): void {
+    this.isMountedNow = false
+
     if (isBrowser) {
       window.addEventListener("resize", this.handleResize)
     }
