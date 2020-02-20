@@ -1,8 +1,9 @@
 import React, { ReactElement } from "react"
 import { CSSObject } from "@emotion/core"
 
+import { isBrowser, isDefined } from "../utils"
+
 import { HeaderContainer, HeaderInner, HeaderOuter } from "./elements"
-import { isBrowser, isDefined } from "./utils"
 
 interface Props {
   children: React.ReactNode | React.ReactNode[];

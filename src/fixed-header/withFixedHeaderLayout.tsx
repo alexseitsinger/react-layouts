@@ -7,8 +7,17 @@ export function withFixedHeaderLayout<P>(
 ): FC<Partial<P>> {
   return (props: P): ReactElement => (
     <Context.Consumer>
-      {(contextProps: ContextProps): ReactElement => (
-        <Component {...props} {...contextProps} />
+      {({
+        viewportHeight,
+        mainHeight,
+        headerHeight,
+      }: ContextProps): ReactElement => (
+        <Component
+          {...props}
+          viewportHeight={viewportHeight}
+          mainHeight={mainHeight}
+          headerHeight={headerHeight}
+        />
       )}
     </Context.Consumer>
   )

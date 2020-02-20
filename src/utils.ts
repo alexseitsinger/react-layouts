@@ -1,8 +1,4 @@
 /**
- * https://stackoverflow.com/questions/4224606/how-to-check-whether-a-script-is-running-under-node-js
- */
-
-/**
  * When we run jest, our global objec tis actually called Window, so checking
  * for that will always fail. Therefore, we need to check for a number of other
  * Node-based variables to assert the environment.

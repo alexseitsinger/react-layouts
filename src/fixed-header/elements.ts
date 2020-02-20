@@ -2,6 +2,7 @@ import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
 `
 
@@ -55,5 +56,58 @@ export const HeaderInner = styled.div`
         min-height: ${initialHeight};
       `
     }
+  }}
+`
+
+interface SidebarContainerProps {
+  sidebarWidth: string;
+}
+
+export const SidebarContainer = styled.div`
+  display: flex;
+  ${({ sidebarWidth }: SidebarContainerProps): any => {
+    return css`
+      width: ${sidebarWidth};
+    `
+  }}
+`
+
+interface SidebarFixedProps {
+  sidebarWidth: string;
+}
+
+export const SidebarFixed = styled.div`
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  ${({ sidebarWidth }: SidebarFixedProps): any => {
+    return css`
+      width: ${sidebarWidth};
+    `
+  }}
+`
+
+interface SidebarVoidProps {
+  headerHeight: string;
+}
+
+export const SidebarVoid = styled.div`
+  ${({ headerHeight }: SidebarVoidProps): any => {
+    return css`
+      height: ${headerHeight};
+    `
+  }}
+`
+
+interface SidebarBodyProps {
+  mainHeight: string;
+}
+
+export const SidebarBody = styled.div`
+  ${({ mainHeight }: SidebarBodyProps): any => {
+    return css`
+      height: ${mainHeight};
+    `
   }}
 `
