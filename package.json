@@ -1,7 +1,7 @@
 {
-  "name": "@alexseitsinger/react-fixed-header-layout",
-  "version": "0.1.4",
-  "description": "DOM layout that uses a fixed header",
+  "name": "@alexseitsinger/react-layouts",
+  "version": "0.0.0",
+  "description": "React DOM layout containers",
   "main": "index.js",
   "types": "dist/types/index.d.ts",
   "files": [
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexseitsinger/react-fixed-header-layout.git"
+    "url": "https://github.com/alexseitsinger/react-layouts.git"
   },
   "keywords": [
     "react",
@@ -29,9 +29,9 @@
   },
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/alexseitsinger/react-fixed-header-layout/issues"
+    "url": "https://github.com/alexseitsinger/react-layouts/issues"
   },
-  "homepage": "https://github.com/alexseitsinger/react-fixed-header-layout",
+  "homepage": "https://github.com/alexseitsinger/react-layouts",
   "dependencies": {
     "@babel/runtime-corejs3": "7.8.4",
     "@emotion/core": "10.0.27",
