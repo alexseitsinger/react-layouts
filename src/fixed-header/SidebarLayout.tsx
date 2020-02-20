@@ -20,6 +20,7 @@ interface Props {
   containerStyle: CSSObject;
   voidStyle: CSSObject;
   bodyStyle: CSSObject;
+  fixedStyle: CSSObject;
 }
 
 export const SidebarLayout = withFixedHeaderLayout(
@@ -32,10 +33,11 @@ export const SidebarLayout = withFixedHeaderLayout(
     containerStyle,
     voidStyle,
     bodyStyle,
+    fixedStyle,
   }: Props): React.ReactElement => (
     <SidebarContainer sidebarWidth={sidebarWidth} css={containerStyle}>
       <PageContainer>{children}</PageContainer>
-      <SidebarFixed sidebarWidth={sidebarWidth}>
+      <SidebarFixed sidebarWidth={sidebarWidth} css={fixedStyle}>
         <SidebarVoid headerHeight={headerHeight} css={voidStyle} />
         <SidebarBody mainHeight={mainHeight} css={bodyStyle}>
           {renderSidebar()}

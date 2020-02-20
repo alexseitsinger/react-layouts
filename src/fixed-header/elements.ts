@@ -1,6 +1,12 @@
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
+/**
+ * Our header is layered here, and then the fixed container in the sidebar is
+ * above the header so styles for the void are visible.
+ */
+const headerLayer = 80
+
 export const Container = styled.div`
   position: relative;
 `
@@ -12,7 +18,7 @@ export const Container = styled.div`
 
 export const HeaderContainer = styled.div`
   position: relative;
-  z-index: 80;
+  z-index: ${headerLayer};
 `
 
 export interface HeaderOuterProps {
@@ -74,11 +80,15 @@ interface SidebarFixedProps {
   sidebarWidth: string;
 }
 
+/**
+ * Use z-index of fixed header + 1 (81)
+ */
 export const SidebarFixed = styled.div`
   height: 100%;
   position: fixed;
   top: 0;
   right: 0;
+  z-index: ${headerLayer + 1};
   ${({ sidebarWidth }: SidebarFixedProps): any => {
     return css`
       width: ${sidebarWidth};
