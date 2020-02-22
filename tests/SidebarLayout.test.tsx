@@ -6,7 +6,7 @@ expect.extend(matchers)
 
 import {
   SidebarContainer,
-  SidebarFixed,
+  SidebarLayoutContainer,
   SidebarVoid,
 } from "src/fixed-header/elements"
 import { FixedHeaderLayout } from "src/fixed-header/FixedHeaderLayout"
@@ -32,12 +32,12 @@ describe("SidebarLayout", () => {
     expect(wrapper.find("#header")).toHaveLength(1)
     expect(wrapper.find(SidebarLayout)).toHaveLength(1)
     expect(wrapper.find("#sidebar")).toHaveLength(1)
-    expect(wrapper.find(SidebarContainer)).toHaveStyleRule(
+    expect(wrapper.find(SidebarLayoutContainer)).toHaveStyleRule(
       "margin-right",
       "300px"
     )
+    expect(wrapper.find(SidebarContainer)).toHaveStyleRule("width", "300px")
     expect(wrapper.find(SidebarVoid)).toHaveStyleRule("height", "40px")
-    expect(wrapper.find(SidebarFixed)).toHaveStyleRule("width", "300px")
     expect(wrapper.find("#body")).toHaveLength(1)
   })
 })
