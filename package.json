@@ -1,6 +1,6 @@
 {
   "name": "@alexseitsinger/react-layouts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React DOM layout containers",
   "main": "index.js",
   "types": "types/index.d.ts",
