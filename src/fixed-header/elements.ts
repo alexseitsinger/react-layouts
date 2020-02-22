@@ -7,9 +7,7 @@ import styled from "@emotion/styled"
  */
 const headerLayer = 80
 
-export const Container = styled.div`
-  position: relative;
-`
+export const Container = styled.div``
 
 /**
  * NOTE: SimpleModal uses 100/101 as the zIndex, so make sure this zIndex is
@@ -64,32 +62,32 @@ export const HeaderInner = styled.div`
   }}
 `
 
-interface SidebarContainerProps {
+interface SidebarLayoutContainerProps {
   sidebarWidth: string;
 }
 
-export const SidebarContainer = styled.div`
-  ${({ sidebarWidth }: SidebarContainerProps): any => {
+export const SidebarLayoutContainer = styled.div`
+  ${({ sidebarWidth }: SidebarLayoutContainerProps): any => {
     return css`
       margin-right: ${sidebarWidth};
     `
   }}
 `
 
-interface SidebarFixedProps {
+interface SidebarContainerProps {
   sidebarWidth: string;
 }
 
 /**
  * Use z-index of fixed header + 1 (81)
  */
-export const SidebarFixed = styled.div`
+export const SidebarContainer = styled.div`
   height: 100%;
   position: fixed;
   top: 0;
   right: 0;
   z-index: ${headerLayer + 1};
-  ${({ sidebarWidth }: SidebarFixedProps): any => {
+  ${({ sidebarWidth }: SidebarContainerProps): any => {
     return css`
       width: ${sidebarWidth};
     `
