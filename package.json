@@ -3,8 +3,9 @@
   "version": "1.0.1",
   "description": "React DOM layout containers",
   "main": "index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
+    "types/*",
     "dist/*",
     "README.md",
     "LICENSE"
@@ -37,7 +38,6 @@
     "@emotion/core": "10.0.27",
     "@emotion/styled": "10.0.27",
     "core-js": "3.6.4",
-    "prop-types": "15.7.2",
     "underscore": "^1.9.2"
   },
   "devDependencies": {
