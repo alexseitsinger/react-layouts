@@ -1,3 +1,13 @@
+<a name="v1.0.2"></a>
+## [v1.0.2](https://github.com/alexseitsinger/react-layouts/compare/v1.0.1...v1.0.2) (2020-02-22)
+
+### Bug Fixes
+- Fixes sidebar layout height. ([8f2001e](https://github.com/alexseitsinger/react-layouts/commit/8f2001e53776d9b04d9ad6b92dd40ba9e10d0b93))
+
+### Features
+- Allows for optional static height. ([6b39da8](https://github.com/alexseitsinger/react-layouts/commit/6b39da8058b2989ea4b5a3fd09ba1be792b5ae7b))
+
+
 <a name="v1.0.1"></a>
 ## [v1.0.1](https://github.com/alexseitsinger/react-layouts/compare/v1.0.0...v1.0.1) (2020-02-20)
 
