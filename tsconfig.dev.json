@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "outDir": "dist/types",
+    "outDir": "types",
     "jsx": "preserve",
     "lib": ["dom", "es2016"],
     "target": "es2016",
