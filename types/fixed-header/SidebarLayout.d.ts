@@ -1,15 +1,13 @@
 import React, { ReactNode } from "react";
 import { CSSObject } from "@emotion/core";
-interface Props {
+import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext";
+declare type Props = {
     children: ReactNode | ReactNode[];
-    renderSidebar: () => React.ReactElement;
-    mainHeight: string;
-    headerHeight: string;
-    viewportHeight: string;
+    renderSidebar: () => ReactNode;
     sidebarWidth: string;
-    containerStyle: CSSObject;
-    voidStyle: CSSObject;
-    bodyStyle: CSSObject;
-}
-export declare const SidebarLayout: React.FC<Partial<Props>>;
+    containerStyle?: CSSObject;
+    voidStyle?: CSSObject;
+    bodyStyle?: CSSObject;
+} & FixedHeaderLayoutContextProps;
+export declare const SidebarLayout: React.ComponentType<import("../types").Partialize<Props, "viewportHeight" | "headerHeight" | "mainHeight">>;
 export {};

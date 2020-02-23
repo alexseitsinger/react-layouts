@@ -1,5 +1,5 @@
 /// <reference types="underscore" />
-import React, { ReactElement, ReactNode } from "react";
+import { PureComponent, ReactNode } from "react";
 interface State {
     viewportWidth: string;
     viewportHeight: string;
@@ -9,7 +9,7 @@ interface Props {
     initialWidth?: string;
     children: ReactNode | ReactNode[];
 }
-export declare class ViewportProvider extends React.Component<Props, State> {
+export declare class ViewportProvider extends PureComponent<Props, State> {
     state: State;
     isMountedNow: boolean;
     handleResize: (() => void) & import("underscore").Cancelable;
@@ -21,6 +21,6 @@ export declare class ViewportProvider extends React.Component<Props, State> {
     getWidth: () => string;
     getHeight: () => string;
     createSizes: () => State;
-    render(): ReactElement;
+    render(): ReactNode;
 }
 export {};

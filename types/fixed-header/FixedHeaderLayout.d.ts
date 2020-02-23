@@ -1,9 +1,9 @@
 /// <reference types="underscore" />
-import React, { Component, ReactElement, ReactNode } from "react";
+import { PureComponent, ReactNode } from "react";
 import { CSSObject } from "@emotion/core";
 interface Props {
     children: ReactNode | ReactNode[];
-    renderHeader: () => React.ReactElement;
+    renderHeader: () => ReactNode;
     headerStyle?: CSSObject;
     initialViewportHeight: string;
     initialHeaderHeight: string;
@@ -13,7 +13,7 @@ interface State {
     headerHeight: string;
     mainHeight: string;
 }
-export declare class FixedHeaderLayout extends Component<Props, State> {
+export declare class FixedHeaderLayout extends PureComponent<Props, State> {
     state: State;
     handleResize: (() => void) & import("underscore").Cancelable;
     isMountedNow: boolean;
@@ -26,6 +26,6 @@ export declare class FixedHeaderLayout extends Component<Props, State> {
     getHeaderHeight: (newSize?: string | undefined) => string;
     getViewportHeight: () => string;
     createHeights: (nextHeaderHeight?: string | undefined) => State;
-    render(): ReactElement;
+    render(): ReactNode;
 }
 export {};

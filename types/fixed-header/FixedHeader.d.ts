@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 import { CSSObject } from "@emotion/core";
 interface Props {
-    children: React.ReactNode | React.ReactNode[];
+    children: ReactNode | ReactNode[];
     styles?: CSSObject;
     initialHeight: string;
     fixedHeight: string;
@@ -13,6 +13,6 @@ export declare class FixedHeader extends React.Component<Props> {
     componentDidUpdate(): void;
     updateHeight: () => void;
     getHeight: () => string;
-    render(): ReactElement;
+    render(): ReactNode;
 }
 export {};
