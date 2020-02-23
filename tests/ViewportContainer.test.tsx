@@ -21,7 +21,7 @@ describe("ViewportContainer", () => {
 
     expect(wrapper.find("div#body")).toHaveLength(1)
     expect(wrapper.find(ViewportContainer)).toHaveLength(1)
-    expect(wrapper.find("div.ViewportContainer")).toHaveStyleRule(
+    expect(wrapper.find(ViewportContainer)).toHaveStyleRule(
       "min-height",
       "600px"
     )
