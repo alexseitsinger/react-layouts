@@ -1,9 +1,9 @@
-import React, { ReactElement, ReactNode } from "react"
+import React, { ReactNode } from "react"
 import { debounce, isEqual } from "underscore"
 
 import { isBrowser } from "../utils"
 
-import { Context } from "./context"
+import { ViewportContext } from "./ViewportContext"
 
 interface State {
   viewportWidth: string;
@@ -102,8 +102,12 @@ export class ViewportProvider extends React.Component<Props, State> {
     }
   }
 
-  render(): ReactElement {
+  render(): ReactNode {
     const { children } = this.props
-    return <Context.Provider value={this.state}>{children}</Context.Provider>
+    return (
+      <ViewportContext.Provider value={this.state}>
+        {children}
+      </ViewportContext.Provider>
+    )
   }
 }

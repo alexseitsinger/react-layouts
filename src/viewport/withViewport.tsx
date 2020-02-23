@@ -1,11 +1,22 @@
-import React, { ComponentType, FC, ReactElement } from "react"
+import React, {
+  ComponentType,
+  FunctionComponent,
+  ReactElement,
+  ReactNode,
+} from "react"
 
-import { Context, ContextProps } from "./context"
+import { Partialize } from "../types"
 
-export function withViewport<P>(Component: ComponentType<P>): FC<Partial<P>> {
+import { ViewportContext as Context, ViewportContextProps as ContextProps } from "./ViewportContext"
+
+type Props<T extends ContextProps> = Partialize<T, keyof ContextProps>
+
+export function withViewport<P extends ContextProps>(
+  Component: ComponentType<P>
+): FunctionComponent<Props<P>> {
   return (props: P): ReactElement => (
     <Context.Consumer>
-      {({ viewportHeight, viewportWidth }: ContextProps): ReactElement => (
+      {({ viewportHeight, viewportWidth }: ContextProps): ReactNode => (
         <Component
           {...props}
           viewportHeight={viewportHeight}

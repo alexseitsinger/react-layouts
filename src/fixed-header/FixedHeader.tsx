@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 
 import { isBrowser, isDefined } from "../utils"
@@ -6,7 +6,7 @@ import { isBrowser, isDefined } from "../utils"
 import { HeaderContainer, HeaderInner, HeaderOuter } from "./elements"
 
 interface Props {
-  children: React.ReactNode | React.ReactNode[];
+  children: ReactNode | ReactNode[];
   styles?: CSSObject;
   initialHeight: string;
   fixedHeight: string;
@@ -45,7 +45,7 @@ export class FixedHeader extends React.Component<Props> {
     return initialHeight
   }
 
-  render(): ReactElement {
+  render(): ReactNode {
     const { children, styles, fixedHeight, initialHeight } = this.props
 
     return (

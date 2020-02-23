@@ -1,15 +1,15 @@
-import React, { Component, ReactElement, ReactNode } from "react"
+import React, { PureComponent, ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 import { debounce, isEqual } from "underscore"
 
 import { isBrowser } from "../utils"
 
-import { Context } from "./context"
 import { FixedHeader } from "./FixedHeader"
+import { FixedHeaderLayoutContext } from "./FixedHeaderLayoutContext"
 
 interface Props {
   children: ReactNode | ReactNode[];
-  renderHeader: () => React.ReactElement;
+  renderHeader: () => ReactNode;
   headerStyle?: CSSObject;
   initialViewportHeight: string;
   initialHeaderHeight: string;
@@ -21,7 +21,7 @@ interface State {
   mainHeight: string;
 }
 
-export class FixedHeaderLayout extends Component<Props, State> {
+export class FixedHeaderLayout extends PureComponent<Props, State> {
   state: State = {
     viewportHeight: "0px",
     mainHeight: "0px",
@@ -120,7 +120,7 @@ export class FixedHeaderLayout extends Component<Props, State> {
     }
   }
 
-  render(): ReactElement {
+  render(): ReactNode {
     const {
       headerStyle,
       initialHeaderHeight,
@@ -139,7 +139,9 @@ export class FixedHeaderLayout extends Component<Props, State> {
           styles={headerStyle}>
           {renderHeader()}
         </FixedHeader>
-        <Context.Provider value={this.state}>{children}</Context.Provider>
+        <FixedHeaderLayoutContext.Provider value={this.state}>
+          {children}
+        </FixedHeaderLayoutContext.Provider>
       </>
     )
   }

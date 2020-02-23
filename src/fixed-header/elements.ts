@@ -1,13 +1,31 @@
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
+import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext"
+import { withFixedHeaderLayout } from "./withFixedHeaderLayout"
+
 /**
  * Our header is layered here, and then the fixed container in the sidebar is
  * above the header so styles for the void are visible.
  */
 const headerLayer = 80
 
-export const Container = styled.div``
+type MainContainerProps = FixedHeaderLayoutContextProps & {
+  isStatic?: boolean,
+}
+
+export const MainContainer = withFixedHeaderLayout(styled.div`
+  ${({ mainHeight, isStatic }: MainContainerProps): any => {
+    if (isStatic !== undefined && isStatic) {
+      return css`
+        height: ${mainHeight};
+      `
+    }
+    return css`
+      min-height: ${mainHeight};
+    `
+  }}
+`)
 
 /**
  * NOTE: SimpleModal uses 100/101 as the zIndex, so make sure this zIndex is

@@ -1,26 +1,24 @@
-import React, { ReactNode } from "react"
+import React, { ReactElement, ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 
 import {
+  MainContainer,
   SidebarBody,
   SidebarContainer,
   SidebarLayoutContainer,
   SidebarVoid,
 } from "./elements"
-import { PageContainer } from "./PageContainer"
+import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext"
 import { withFixedHeaderLayout } from "./withFixedHeaderLayout"
 
-interface Props {
-  children: ReactNode | ReactNode[];
-  renderSidebar: () => React.ReactElement;
-  mainHeight: string;
-  headerHeight: string;
-  viewportHeight: string;
-  sidebarWidth: string;
-  containerStyle: CSSObject;
-  voidStyle: CSSObject;
-  bodyStyle: CSSObject;
-}
+type Props = {
+  children: ReactNode | ReactNode[],
+  renderSidebar: () => ReactNode,
+  sidebarWidth: string,
+  containerStyle?: CSSObject,
+  voidStyle?: CSSObject,
+  bodyStyle?: CSSObject,
+} & FixedHeaderLayoutContextProps
 
 export const SidebarLayout = withFixedHeaderLayout(
   ({
@@ -32,9 +30,9 @@ export const SidebarLayout = withFixedHeaderLayout(
     containerStyle,
     voidStyle,
     bodyStyle,
-  }: Props): React.ReactElement => (
+  }: Props): ReactElement => (
     <SidebarLayoutContainer sidebarWidth={sidebarWidth}>
-      <PageContainer>{children}</PageContainer>
+      <MainContainer>{children}</MainContainer>
       <SidebarContainer sidebarWidth={sidebarWidth} css={containerStyle}>
         <SidebarVoid headerHeight={headerHeight} css={voidStyle} />
         <SidebarBody mainHeight={mainHeight} css={bodyStyle}>
