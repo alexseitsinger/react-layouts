@@ -2,13 +2,13 @@ import React, { ReactElement, ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 
 import {
-  MainContainer,
   SidebarBody,
   SidebarContainer,
   SidebarLayoutContainer,
   SidebarVoid,
 } from "./elements"
 import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext"
+import { MainContainer } from "./MainContainer"
 import { withFixedHeaderLayout } from "./withFixedHeaderLayout"
 
 type Props = {

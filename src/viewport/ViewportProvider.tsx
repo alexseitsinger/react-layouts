@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { PureComponent, ReactNode } from "react"
 import { debounce, isEqual } from "underscore"
 
 import { isBrowser } from "../utils"
@@ -16,7 +16,7 @@ interface Props {
   children: ReactNode | ReactNode[];
 }
 
-export class ViewportProvider extends React.Component<Props, State> {
+export class ViewportProvider extends PureComponent<Props, State> {
   state: State = {
     viewportHeight: "0px",
     viewportWidth: "0px",

@@ -1,14 +1,12 @@
 import React, {
   ComponentType,
-  FunctionComponent,
   ReactElement,
-  ReactNode,
 } from "react"
 
 import { Partialize } from "../types"
 
 import {
-  FixedHeaderLayoutContext,
+  FixedHeaderLayoutContext as Context,
   FixedHeaderLayoutContextProps as ContextProps,
 } from "./FixedHeaderLayoutContext"
 
@@ -17,14 +15,14 @@ type Optional<T extends ContextProps> = Partialize<T, keyof ContextProps>
 
 export function withFixedHeaderLayout<P extends ContextProps>(
   Component: ComponentType<P>
-): FunctionComponent<Optional<P>> {
+): ComponentType<Optional<P>> {
   return (props: P): ReactElement => (
-    <FixedHeaderLayoutContext.Consumer>
+    <Context.Consumer>
       {({
         viewportHeight,
         mainHeight,
         headerHeight,
-      }: ContextProps): ReactNode => (
+      }: ContextProps): ReactElement => (
         <Component
           {...props}
           viewportHeight={viewportHeight}
@@ -32,6 +30,6 @@ export function withFixedHeaderLayout<P extends ContextProps>(
           headerHeight={headerHeight}
         />
       )}
-    </FixedHeaderLayoutContext.Consumer>
+    </Context.Consumer>
   )
 }
