@@ -9,5 +9,5 @@ declare type Props = {
     voidStyle?: CSSObject;
     bodyStyle?: CSSObject;
 } & FixedHeaderLayoutContextProps;
-export declare const SidebarLayout: React.ComponentType<import("../types").Partialize<Props, "viewportHeight" | "headerHeight" | "mainHeight">>;
+export declare const SidebarLayout: React.ComponentType<import("../types").Partialize<Props, "mainHeight" | "viewportHeight" | "headerHeight">>;
 export {};
