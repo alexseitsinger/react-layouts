@@ -1,3 +1,17 @@
+<a name="v1.1.0"></a>
+## [v1.1.0](https://github.com/alexseitsinger/react-layouts/compare/v1.0.2...v1.1.0) (2020-02-26)
+
+### Code Refactoring
+- Refactors containers & updates typings. ([c6f77ce](https://github.com/alexseitsinger/react-layouts/commit/c6f77cead498e68b70f9f5779b411828c40dc870))
+- Updates MainElement, etc. ([f4d3388](https://github.com/alexseitsinger/react-layouts/commit/f4d3388794a296cdbd9c6b084b589e9dc516b131))
+- Updates types. ([a3f1c0b](https://github.com/alexseitsinger/react-layouts/commit/a3f1c0b500253772589cb2b7b499341913a22901))
+- Updates types. ([b2b1c65](https://github.com/alexseitsinger/react-layouts/commit/b2b1c6549c2c42f8fe46f649f7487cdaa221ec89))
+- Updates. ([6b616bd](https://github.com/alexseitsinger/react-layouts/commit/6b616bdc22e094c5bb4aa557dd17c368affba637))
+
+### Features
+- adds types ([c0d9713](https://github.com/alexseitsinger/react-layouts/commit/c0d971399b741391769949c67024604940e272ba))
+
+
 <a name="v1.0.2"></a>
 ## [v1.0.2](https://github.com/alexseitsinger/react-layouts/compare/v1.0.1...v1.0.2) (2020-02-22)
 
