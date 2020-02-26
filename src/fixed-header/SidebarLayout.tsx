@@ -2,13 +2,13 @@ import React, { ReactElement, ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 
 import {
+  MainElement,
   SidebarBody,
   SidebarContainer,
   SidebarLayoutContainer,
   SidebarVoid,
 } from "./elements"
 import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext"
-import { MainContainer } from "./MainContainer"
 import { withFixedHeaderLayout } from "./withFixedHeaderLayout"
 
 type Props = {
@@ -32,7 +32,7 @@ export const SidebarLayout = withFixedHeaderLayout(
     bodyStyle,
   }: Props): ReactElement => (
     <SidebarLayoutContainer sidebarWidth={sidebarWidth}>
-      <MainContainer>{children}</MainContainer>
+      <MainElement mainHeight={mainHeight}>{children}</MainElement>
       <SidebarContainer sidebarWidth={sidebarWidth} css={containerStyle}>
         <SidebarVoid headerHeight={headerHeight} css={voidStyle} />
         <SidebarBody mainHeight={mainHeight} css={bodyStyle}>

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { PureComponent, ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 
 import { isBrowser, isDefined } from "../utils"
@@ -13,7 +13,7 @@ interface Props {
   onUpdateHeight: (h: string) => void;
 }
 
-export class FixedHeader extends React.Component<Props> {
+export class FixedHeader extends PureComponent<Props> {
   innerRef = React.createRef<HTMLDivElement>()
 
   componentDidMount(): void {

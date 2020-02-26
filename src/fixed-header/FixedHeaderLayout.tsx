@@ -131,7 +131,7 @@ export class FixedHeaderLayout extends PureComponent<Props, State> {
     const { headerHeight } = this.state
 
     return (
-      <>
+      <FixedHeaderLayoutContext.Provider value={this.state}>
         <FixedHeader
           initialHeight={initialHeaderHeight}
           fixedHeight={headerHeight}
@@ -139,10 +139,8 @@ export class FixedHeaderLayout extends PureComponent<Props, State> {
           styles={headerStyle}>
           {renderHeader()}
         </FixedHeader>
-        <FixedHeaderLayoutContext.Provider value={this.state}>
-          {children}
-        </FixedHeaderLayoutContext.Provider>
-      </>
+        {children}
+      </FixedHeaderLayoutContext.Provider>
     )
   }
 }
