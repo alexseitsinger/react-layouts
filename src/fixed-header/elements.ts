@@ -1,4 +1,4 @@
-import { css } from "@emotion/core"
+import { css, SerializedStyles } from "@emotion/core"
 import styled from "@emotion/styled"
 
 import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext"
@@ -13,8 +13,8 @@ type MainElementProps = Partial<FixedHeaderLayoutContextProps> & {
   isStatic?: boolean,
 }
 
-export const MainElement = styled.div`
-  ${({ mainHeight, isStatic }: MainElementProps): any => {
+export const MainElement = styled.main`
+  ${({ mainHeight, isStatic }: MainElementProps): SerializedStyles => {
     if (isStatic !== undefined && isStatic) {
       return css`
         height: ${mainHeight};
@@ -31,7 +31,7 @@ export const MainElement = styled.div`
  * always less than that. and above any other zIndex.
  */
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.header`
   position: relative;
   z-index: ${headerLayer};
 `
@@ -42,7 +42,7 @@ export interface HeaderOuterProps {
 }
 
 export const HeaderOuter = styled.div`
-  ${({ fixedHeight, initialHeight }: HeaderOuterProps): any => {
+  ${({ fixedHeight, initialHeight }: HeaderOuterProps): SerializedStyles => {
     if (fixedHeight !== undefined) {
       return css`
         height: ${fixedHeight};
@@ -53,6 +53,7 @@ export const HeaderOuter = styled.div`
         min-height: ${initialHeight};
       `
     }
+    return css``
   }}
 `
 
@@ -63,7 +64,7 @@ export interface HeaderInnerProps {
 
 export const HeaderInner = styled.div`
   width: 100%;
-  ${({ fixedHeight, initialHeight }: HeaderInnerProps): any => {
+  ${({ fixedHeight, initialHeight }: HeaderInnerProps): SerializedStyles => {
     if (fixedHeight !== undefined) {
       return css`
         height: ${fixedHeight};
@@ -76,6 +77,7 @@ export const HeaderInner = styled.div`
         min-height: ${initialHeight};
       `
     }
+    return css``
   }}
 `
 
@@ -84,11 +86,9 @@ interface SidebarLayoutContainerProps {
 }
 
 export const SidebarLayoutContainer = styled.div`
-  ${({ sidebarWidth }: SidebarLayoutContainerProps): any => {
-    return css`
-      margin-right: ${sidebarWidth};
-    `
-  }}
+  ${({ sidebarWidth }: SidebarLayoutContainerProps): SerializedStyles => css`
+    margin-right: ${sidebarWidth};
+  `}
 `
 
 interface SidebarContainerProps {
@@ -98,17 +98,15 @@ interface SidebarContainerProps {
 /**
  * Use z-index of fixed header + 1 (81)
  */
-export const SidebarContainer = styled.div`
+export const SidebarContainer = styled.aside`
   height: 100%;
   position: fixed;
   top: 0;
   right: 0;
   z-index: ${headerLayer + 1};
-  ${({ sidebarWidth }: SidebarContainerProps): any => {
-    return css`
-      width: ${sidebarWidth};
-    `
-  }}
+  ${({ sidebarWidth }: SidebarContainerProps): SerializedStyles => css`
+    width: ${sidebarWidth};
+  `}
 `
 
 interface SidebarVoidProps {
@@ -116,11 +114,9 @@ interface SidebarVoidProps {
 }
 
 export const SidebarVoid = styled.div`
-  ${({ headerHeight }: SidebarVoidProps): any => {
-    return css`
-      height: ${headerHeight};
-    `
-  }}
+  ${({ headerHeight }: SidebarVoidProps): SerializedStyles => css`
+    height: ${headerHeight};
+  `}
 `
 
 interface SidebarBodyProps {
@@ -128,9 +124,7 @@ interface SidebarBodyProps {
 }
 
 export const SidebarBody = styled.div`
-  ${({ mainHeight }: SidebarBodyProps): any => {
-    return css`
-      height: ${mainHeight};
-    `
-  }}
+  ${({ mainHeight }: SidebarBodyProps): SerializedStyles => css`
+    height: ${mainHeight};
+  `}
 `
