@@ -1,9 +1,9 @@
-export { FixedHeaderLayout } from "./fixed-header/FixedHeaderLayout"
-export { FixedHeader } from "./fixed-header/FixedHeader"
-export { withFixedHeaderLayout } from "./fixed-header/withFixedHeaderLayout"
-export { SidebarLayout } from "./fixed-header/SidebarLayout"
-export { MainContainer } from "./fixed-header/MainContainer"
+export {
+  FixedHeaderLayout,
+  withFixedHeaderLayout,
+  SidebarLayout,
+  Main,
+  FooterLayout,
+} from "./fixed-header-layout"
 
-export { ViewportProvider } from "./viewport/ViewportProvider"
-export { withViewport } from "./viewport/withViewport"
-export { ViewportContainer } from "./viewport/ViewportContainer"
+export { ViewportContainer, ViewportProvider, withViewport } from "./viewport"
