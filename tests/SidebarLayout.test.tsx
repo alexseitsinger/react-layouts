@@ -8,9 +8,9 @@ import {
   SidebarContainer,
   SidebarLayoutContainer,
   SidebarVoid,
-} from "src/fixed-header/elements"
-import { FixedHeaderLayout } from "src/fixed-header/FixedHeaderLayout"
-import { SidebarLayout } from "src/fixed-header/SidebarLayout"
+} from "src/fixed-header-layout/sidebar-layout/elements"
+import { FixedHeaderLayout } from "src/fixed-header-layout"
+import { SidebarLayout } from "src/fixed-header-layout/sidebar-layout"
 
 describe("SidebarLayout", () => {
   it("should render a sidebar to the right of the page", () => {
@@ -18,10 +18,12 @@ describe("SidebarLayout", () => {
       <FixedHeaderLayout
         initialHeaderHeight={"40px"}
         initialViewportHeight={"600px"}
-        renderHeader={(): ReactElement => <div id={"header"}>Header</div>}>
+        onRenderHeader={(): ReactElement => <div id={"header"}>Header</div>}>
         <SidebarLayout
           sidebarWidth={"300px"}
-          renderSidebar={(): ReactElement => <div id={"sidebar"}>Sidebar</div>}>
+          onRenderSidebar={(): ReactElement => (
+            <div id={"sidebar"}>Sidebar</div>
+          )}>
           <div id={"body"}>Body</div>
         </SidebarLayout>
       </FixedHeaderLayout>

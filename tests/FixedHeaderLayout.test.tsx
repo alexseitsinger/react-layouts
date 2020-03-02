@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import React, { ReactElement } from "react"
-import { jsx } from "@emotion/core"
+import { jsx, css } from "@emotion/core"
 import { mount } from "enzyme"
 import { matchers } from "jest-emotion"
 
 expect.extend(matchers)
 
-import { HeaderInner } from "src/fixed-header/elements"
-import { FixedHeaderLayout } from "src/fixed-header/FixedHeaderLayout"
+import { HeaderInner } from "src/fixed-header-layout/header/elements"
+import { FixedHeaderLayout } from "src/fixed-header-layout"
 
 describe("FixedHeaderLayout", () => {
   it("should render a fixed header about the main content", () => {
@@ -15,7 +15,7 @@ describe("FixedHeaderLayout", () => {
       <FixedHeaderLayout
         initialViewportHeight={"600px"}
         initialHeaderHeight={"40px"}
-        renderHeader={(): ReactElement => <div id={"header"}>Header</div>}>
+        onRenderHeader={(): ReactElement => <div id={"header"}>Header</div>}>
         <div id={"body"}>Body</div>
       </FixedHeaderLayout>
     )
