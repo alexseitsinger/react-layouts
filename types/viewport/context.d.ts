@@ -1,6 +1,7 @@
 import React from "react";
-export interface ContextProps {
+export interface ViewportContextProps {
     viewportHeight: string;
     viewportWidth?: string;
 }
-export declare const Context: React.Context<ContextProps>;
+export declare const defaultContext: ViewportContextProps;
+export declare const ViewportContext: React.Context<ViewportContextProps>;
