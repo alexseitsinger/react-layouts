@@ -5,7 +5,7 @@ export interface ViewportContextProps {
   viewportWidth?: string;
 }
 
-const defaultContext: ViewportContextProps = {
+export const defaultContext: ViewportContextProps = {
   viewportWidth: "0px",
   viewportHeight: "0px",
 }

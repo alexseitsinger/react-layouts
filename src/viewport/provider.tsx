@@ -3,7 +3,7 @@ import { debounce, isEqual } from "underscore"
 
 import { isBrowser } from "../utils"
 
-import { ViewportContext } from "./ViewportContext"
+import { ViewportContext as Context } from "./context"
 
 interface State {
   viewportWidth: string;
@@ -104,10 +104,6 @@ export class ViewportProvider extends PureComponent<Props, State> {
 
   render(): ReactNode {
     const { children } = this.props
-    return (
-      <ViewportContext.Provider value={this.state}>
-        {children}
-      </ViewportContext.Provider>
-    )
+    return <Context.Provider value={this.state}>{children}</Context.Provider>
   }
 }

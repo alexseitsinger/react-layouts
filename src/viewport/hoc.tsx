@@ -5,15 +5,17 @@ import React, {
 
 import { Partialize } from "../types"
 
-import { ViewportContext as Context, ViewportContextProps as ContextProps } from "./ViewportContext"
+import {
+  ViewportContext as Context,
+  ViewportContextProps as ContextProps
+} from "./context"
 
 type Optional<T extends ContextProps> = Partialize<T, keyof ContextProps>
-type WithoutContextProps<P extends ContextProps> = Optional<P>
 
-export function withViewport<P extends ContextProps>(
-  Component: ComponentType<WithoutContextProps<P>>
-): ComponentType<WithoutContextProps<P>> {
-  return (props: WithoutContextProps<P>): ReactElement => (
+export function withViewport<T extends ContextProps>(
+  Component: ComponentType<T>
+): ComponentType<Optional<T>> {
+  return (props: T): ReactElement => (
     <Context.Consumer>
       {({ viewportHeight, viewportWidth }: ContextProps): ReactElement => (
         <Component
