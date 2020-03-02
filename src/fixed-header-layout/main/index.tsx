@@ -1,15 +1,15 @@
 import React, { ReactElement, ReactNode } from "react"
 
 import { MainElement } from "./elements"
-import { FixedHeaderLayoutContextProps } from "./FixedHeaderLayoutContext"
-import { withFixedHeaderLayout } from "./withFixedHeaderLayout"
+import { FixedHeaderLayoutContextProps as ContextProps } from "../context"
+import { withFixedHeaderLayout } from "../hoc"
 
-type Props = FixedHeaderLayoutContextProps & {
+type Props = {
   isStatic?: boolean,
   children: ReactNode | ReactNode[],
-}
+} & ContextProps
 
-export const MainContainer = withFixedHeaderLayout(
+export const Main = withFixedHeaderLayout(
   ({ isStatic, mainHeight, children }: Props): ReactElement => (
     <MainElement mainHeight={mainHeight} isStatic={isStatic}>
       {children}

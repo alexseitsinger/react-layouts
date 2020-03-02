@@ -3,20 +3,19 @@ import React, {
   ReactElement,
 } from "react"
 
-import { Partialize } from "../types"
-
 import {
   FixedHeaderLayoutContext as Context,
   FixedHeaderLayoutContextProps as ContextProps,
-} from "./FixedHeaderLayoutContext"
+} from "./context"
+
+import { Partialize } from "../types"
 
 type Optional<T extends ContextProps> = Partialize<T, keyof ContextProps>
 
-
-export function withFixedHeaderLayout<P extends ContextProps>(
-  Component: ComponentType<P>
-): ComponentType<Optional<P>> {
-  return (props: P): ReactElement => (
+export function withFixedHeaderLayout<T extends ContextProps>(
+  Component: ComponentType<T>
+): ComponentType<Optional<T>> {
+  return (props: T): ReactElement => (
     <Context.Consumer>
       {({
         viewportHeight,
