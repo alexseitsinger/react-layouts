@@ -4,7 +4,8 @@ import { jsx } from "@emotion/core"
 import { mount } from "enzyme"
 import { matchers } from "jest-emotion"
 
-import { ViewportContainer, ViewportProvider } from "src"
+import { ViewportProvider } from "src/viewport/provider"
+import { ViewportContainer } from "src/viewport/container"
 //import { Container } from "src/viewport/elements"
 
 expect.extend(matchers)
