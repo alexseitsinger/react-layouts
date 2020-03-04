@@ -8,8 +8,6 @@ import { isBrowser, isDefined } from "../utils"
 
 import { HeaderElement, HeaderInner, HeaderOuter } from "./elements"
 
-jest.setTimeout(10000)
-
 export interface HeaderLayoutProps {
   onRenderHeader: () => ReactNode;
   initialHeaderHeight: string;
@@ -33,9 +31,6 @@ export const HeaderLayout = withLayout(
   }: Props): ReactElement {
     const headerRef = useRef<HTMLDivElement>(null)
 
-    console.log("headerHeight: ", headerHeight)
-    console.log("initialHeaderHeight: ", initialHeaderHeight)
-
     const getHeight = useCallback((): string => {
       const { current } = headerRef
       if (isBrowser && isDefined(current)) {
@@ -49,9 +44,11 @@ export const HeaderLayout = withLayout(
     }, [initialHeaderHeight, headerHeight, headerRef])
 
     const shouldUpdate = useCallback((): boolean => {
+      const nextHeight = getHeight()
+      const isStaticHeight = (nextHeight === headerHeight)
+      const isInitialHeight = (nextHeight === initialHeaderHeight)
       const hasFooterHeight = (footerHeight !== "0px")
-      const hasSameHeight = (getHeight() === headerHeight)
-      if (hasSameHeight) {
+      if (isStaticHeight) {
         if (hasFooterHeight) {
           return true
         }
@@ -62,7 +59,6 @@ export const HeaderLayout = withLayout(
 
     const updateHeight = useCallback((): void => {
       if (shouldUpdate()) {
-        console.log("shouldUpdate: true (header via updateHeight)")
         onResize({
           nextHeaderHeight: getHeight()
         })
@@ -71,12 +67,11 @@ export const HeaderLayout = withLayout(
 
     useEffect(() => {
       if (shouldUpdate()) {
-        console.log("shouldUpdate: true (header via useEffect)")
         updateHeight()
       }
     }, [])
 
-    updateHeight()
+    //updateHeight()
 
     return (
       <>

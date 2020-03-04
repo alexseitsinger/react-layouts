@@ -52,8 +52,9 @@ export const FooterLayout = withLayout(
 
     const shouldUpdate = useCallback((): boolean => {
       const hasHeaderHeight = (headerHeight !== "0px")
-      const hasSameHeight = (getHeight() === footerHeight)
-      if (hasSameHeight) {
+      const isStaticHeight = (getHeight() === footerHeight)
+      const isUsingInitial = (footerHeight === initialFooterHeight)
+      if (isStaticHeight) {
         if (hasHeaderHeight) {
           return true
         }
@@ -64,7 +65,6 @@ export const FooterLayout = withLayout(
 
     const updateHeight = useCallback((): void => {
       if (shouldUpdate()) {
-        console.log("updating height (footer)")
         onResize({
           nextFooterHeight: getHeight()
         })
@@ -77,7 +77,7 @@ export const FooterLayout = withLayout(
       }
     }, [])
 
-    updateHeight()
+    //updateHeight()
 
     return (
       <>

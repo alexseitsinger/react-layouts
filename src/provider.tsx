@@ -148,12 +148,10 @@ export function LayoutProvider({
 
   const saveUpdates = useCallback(
     debounce(() => {
-      console.log("saving updates...")
       const heights = getHeights({
         nextHeaderHeight: updates.current.headerHeight,
         nextFooterHeight: updates.current.footerHeight,
       })
-      console.log("heights: ", heights)
       setState(heights)
       updates.current.headerHeight = "0px"
       updates.current.footerHeight = "0px"
@@ -164,27 +162,20 @@ export function LayoutProvider({
   const updateHeights = useCallback(
     (props: HeightProps): void => {
       setTimeout(() => {
-        console.log("props: ", props)
         const nextHeights = getHeights(props)
         if (isHeaderChange(props)) {
-          console.log("isHeaderChange")
           if (nextHeights.headerHeight === state.headerHeight) {
-            console.log("header is the same, so skipping")
             return
           }
           if (updates.current.headerHeight === "0px") {
-            console.log("Setting header height for an update")
             updates.current.headerHeight = nextHeights.headerHeight
           }
         }
         if (isFooterChange(props)) {
-          console.log("isFooterChange")
           if (nextHeights.footerHeight === state.footerHeight) {
-            console.log("footer is the same, so skipping")
             return
           }
           if (updates.current.footerHeight === "0px") {
-            console.log("Setting footer height for an update")
             updates.current.footerHeight = nextHeights.footerHeight
           }
         }
