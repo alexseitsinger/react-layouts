@@ -4,10 +4,9 @@ import React, {
   useEffect,
   useCallback,
   ReactElement,
-  createRef,
   useRef,
 } from "react"
-import { debounce, throttle, isEqual } from "underscore"
+import { debounce } from "underscore"
 
 import { isBrowser } from "./utils"
 import {
