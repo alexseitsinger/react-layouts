@@ -1,4 +1,4 @@
-import React, {ComponentType,ReactElement,} from "react"
+import React, { ComponentType, ReactElement } from "react"
 
 import {
   LayoutContext as Context,
@@ -15,22 +15,22 @@ export function withLayout<T extends ContextProps>(
     return (
       <Context.Consumer>
         {({
-            footerStyle,
-            headerStyle,
-            onRenderFooter,
-            onRenderHeader,
-            onRenderSidebar,
-            sidebarBodyStyle,
-            sidebarContainerStyle,
-            sidebarVoidStyle,
-            sidebarWidth,
-            initialFooterHeight,
-            initialHeaderHeight,
-            footerHeight,
-            headerHeight,
-            viewportHeight,
-            mainHeight,
-            onResize,
+          footerStyle,
+          headerStyle,
+          onRenderFooter,
+          onRenderHeader,
+          onRenderSidebar,
+          sidebarBodyStyle,
+          sidebarContainerStyle,
+          sidebarVoidStyle,
+          sidebarWidth,
+          initialFooterHeight,
+          initialHeaderHeight,
+          footerHeight,
+          headerHeight,
+          viewportHeight,
+          mainHeight,
+          onResize,
         }: ContextProps): ReactElement => (
           <Component
             initialHeaderHeight={initialHeaderHeight}
