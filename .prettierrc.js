@@ -5,7 +5,7 @@ module.exports = {
   trailingComma: "es5",
   bracketSpacing: true,
   jsxBracketSameLine: true,
-  parser: "babel",
+  parser: "typescript",
   semi: false,
   useTabs: false,
   proseWrap: "preserve",
