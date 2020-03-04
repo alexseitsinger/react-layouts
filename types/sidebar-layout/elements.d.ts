@@ -2,6 +2,7 @@
 /// <reference types="@emotion/core" />
 interface SidebarLayoutMainProps {
     sidebarWidth: string;
+    mainHeight: string;
 }
 export declare const SidebarLayoutMain: import("@emotion/styled-base").StyledComponent<import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLDivElement>, HTMLDivElement>, SidebarLayoutMainProps, object>;
 interface SidebarLayoutContainerProps {
