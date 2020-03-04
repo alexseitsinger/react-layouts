@@ -18,32 +18,34 @@ import { SidebarLayoutProps } from "src/sidebar-layout"
 import { HeaderLayoutProps } from "src/header-layout"
 import { FooterLayoutProps } from "src/footer-layout"
 
+const zeroHeight = "0px"
+
 export const defaultProps = {
-  initialHeaderHeight: "0px",
-  initialFooterHeight: "0px",
-  sidebarWidth: "0px",
+  initialHeaderHeight: zeroHeight,
+  initialFooterHeight: zeroHeight,
+  sidebarWidth: zeroHeight,
 }
 
 type Props = {
-  children: ReactNode | ReactNode[],
-  initialViewportHeight: string,
+  children: ReactNode | ReactNode[]
+  initialViewportHeight: string
 } & Partial<SidebarLayoutProps> &
   Partial<FooterLayoutProps> &
   Partial<HeaderLayoutProps> &
   Readonly<typeof defaultProps>
 
 export const initialState = {
-  viewportHeight: "0px",
-  headerHeight: "0px",
-  mainHeight: "0px",
-  footerHeight: "0px",
+  viewportHeight: zeroHeight,
+  headerHeight: zeroHeight,
+  mainHeight: zeroHeight,
+  footerHeight: zeroHeight,
 }
 
 type State = typeof initialState
 
 export interface HeightProps {
-  nextHeaderHeight?: string;
-  nextFooterHeight?: string;
+  nextHeaderHeight?: string
+  nextFooterHeight?: string
 }
 
 export function LayoutProvider({
@@ -131,56 +133,68 @@ export function LayoutProvider({
     const keys = Object.keys(props)
     const key = "nextFooterHeight"
     const isChange = keys.includes(key)
-    return isChange && props[key] !== "0px"
+    return isChange && props[key] !== zeroHeight
   }, [])
 
   const isHeaderChange = useCallback((props: HeightProps) => {
     const keys = Object.keys(props)
     const key = "nextHeaderHeight"
     const isChange = keys.includes(key)
-    return isChange && props[key] !== "0px"
+    return isChange && props[key] !== zeroHeight
   }, [])
 
   const updates = useRef({
-    headerHeight: "0px",
-    footerHeight: "0px",
+    headerHeight: zeroHeight,
+    footerHeight: zeroHeight,
   })
 
   const saveUpdates = useCallback(
     debounce(() => {
+      const { headerHeight, footerHeight } = updates.current
       const heights = getHeights({
-        nextHeaderHeight: updates.current.headerHeight,
-        nextFooterHeight: updates.current.footerHeight,
+        nextHeaderHeight: headerHeight,
+        nextFooterHeight: footerHeight,
       })
       setState(heights)
-      updates.current.headerHeight = "0px"
-      updates.current.footerHeight = "0px"
-    }, 1000),
+      updates.current.headerHeight = zeroHeight
+      updates.current.footerHeight = zeroHeight
+    }, 2000),
     [setState, getHeights, updates]
   )
 
   const updateHeights = useCallback(
     (props: HeightProps): void => {
       setTimeout(() => {
-        const nextHeights = getHeights(props)
+        const {
+          headerHeight: nextHeaderHeight,
+          footerHeight: nextFooterHeight,
+        } = getHeights(props)
+        const {
+          headerHeight: updatedHeaderHeight,
+          footerHeight: updatedFooterHeight,
+        } = updates.current
+        const {
+          headerHeight: currentHeaderHeight,
+          footerHeight: currentFooterHeight,
+        } = state
         if (isHeaderChange(props)) {
-          if (nextHeights.headerHeight === state.headerHeight) {
+          if (nextHeaderHeight === currentHeaderHeight) {
             return
           }
-          if (updates.current.headerHeight === "0px") {
-            updates.current.headerHeight = nextHeights.headerHeight
+          if (updatedHeaderHeight === zeroHeight) {
+            updates.current.headerHeight = nextHeaderHeight
           }
         }
         if (isFooterChange(props)) {
-          if (nextHeights.footerHeight === state.footerHeight) {
+          if (nextFooterHeight === currentFooterHeight) {
             return
           }
-          if (updates.current.footerHeight === "0px") {
-            updates.current.footerHeight = nextHeights.footerHeight
+          if (updatedFooterHeight === zeroHeight) {
+            updates.current.footerHeight = nextFooterHeight
           }
         }
         saveUpdates()
-      }, 100)
+      }, 1)
     },
     [getHeights, setState, isHeaderChange, isFooterChange, saveUpdates]
   )

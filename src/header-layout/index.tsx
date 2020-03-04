@@ -1,5 +1,12 @@
-import React, { ReactElement, ReactNode, useCallback, forwardRef, useRef, useEffect } from "react"
+import React, {
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useRef,
+  useEffect,
+} from "react"
 import { CSSObject } from "@emotion/core"
+import { getStyle } from "@pacote/get-style"
 
 import { withLayout } from "src/hoc"
 
@@ -9,87 +16,117 @@ import { isBrowser, isDefined } from "../utils"
 import { HeaderElement, HeaderInner, HeaderOuter } from "./elements"
 
 export interface HeaderLayoutProps {
-  onRenderHeader: () => ReactNode;
-  initialHeaderHeight: string;
-  headerStyle?: CSSObject;
+  onRenderHeader: () => ReactNode
+  initialHeaderHeight: string
+  headerStyle?: CSSObject
 }
 
 type BaseProps = ContextProps & HeaderLayoutProps
 type Props = BaseProps & {
-  children: ReactNode | ReactNode[],
+  children: ReactNode | ReactNode[]
 }
 
-export const HeaderLayout = withLayout(
-  function HeaderLayout({
-    children,
-    footerHeight,
-    headerHeight,
-    initialHeaderHeight,
-    headerStyle,
-    onRenderHeader,
-    onResize,
-  }: Props): ReactElement {
-    const headerRef = useRef<HTMLDivElement>(null)
+export const HeaderLayout = withLayout(function HeaderLayout({
+  children,
+  headerHeight,
+  initialHeaderHeight,
+  headerStyle,
+  onRenderHeader,
+  onResize,
+  footerHeight,
+}: Props): ReactElement {
+  const headerRef = useRef<HTMLDivElement>(null)
+  const { current } = headerRef
+  const zeroHeight = "0px"
+  const currentHeight = headerHeight
+  const siblingHeight = footerHeight
 
-    const getHeight = useCallback((): string => {
-      const { current } = headerRef
-      if (isBrowser && isDefined(current)) {
-        const { height } = getComputedStyle(current as HTMLDivElement)
-        return height
-      }
-      if (isDefined(headerHeight) && headerHeight !== "0px" && headerHeight !== initialHeaderHeight) {
-        return headerHeight
-      }
-      return initialHeaderHeight
-    }, [initialHeaderHeight, headerHeight, headerRef])
+  const hasHeight = useCallback((): boolean => {
+    return isDefined(currentHeight) && currentHeight !== zeroHeight
+  }, [currentHeight, zeroHeight])
 
-    const shouldUpdate = useCallback((): boolean => {
-      const nextHeight = getHeight()
-      const isStaticHeight = (nextHeight === headerHeight)
-      const isInitialHeight = (nextHeight === initialHeaderHeight)
-      const hasFooterHeight = (footerHeight !== "0px")
-      if (isStaticHeight) {
-        if (hasFooterHeight) {
+  const isNewHeight = useCallback(
+    (nextHeight: string): boolean => {
+      return nextHeight !== currentHeight && nextHeight !== zeroHeight
+    },
+    [currentHeight, zeroHeight]
+  )
+
+  const getHeight = useCallback((): string => {
+    if (isBrowser && current !== null) {
+      return getStyle(current, "height")
+    }
+    if (hasHeight()) {
+      return currentHeight
+    }
+    return initialHeaderHeight
+  }, [initialHeaderHeight, currentHeight, current, hasHeight])
+
+  const requiresResize = useCallback(
+    (nextHeight?: string): boolean => {
+      const height = nextHeight !== undefined ? nextHeight : zeroHeight
+      const nextSize = parseInt(height)
+      const currentSize = parseInt(currentHeight)
+      return nextSize > currentSize
+    },
+    [getHeight, currentHeight]
+  )
+
+  const shouldUpdate = useCallback(
+    (newHeight?: string): boolean => {
+      let nextHeight = newHeight !== undefined ? newHeight : getHeight()
+      if (hasHeight()) {
+        if (requiresResize(nextHeight)) {
+          //console.log("should update (header via requiredResize)")
           return true
         }
+        //console.log("should NOT update (header via hasHeight)")
         return false
       }
-      return true
-    }, [getHeight, headerHeight, footerHeight])
-
-    const updateHeight = useCallback((): void => {
-      if (shouldUpdate()) {
-        onResize({
-          nextHeaderHeight: getHeight()
-        })
+      if (isNewHeight(nextHeight)) {
+        //console.log("should update (header via isNewHeight)")
+        return true
       }
-    }, [onResize, getHeight, shouldUpdate])
+      //console.log("should NOT update (header via shouldUpdate)")
+      return false
+    },
+    [getHeight, isNewHeight, hasHeight, siblingHeight, requiresResize]
+  )
 
-    useEffect(() => {
-      if (shouldUpdate()) {
-        updateHeight()
-      }
-    }, [])
+  const updateHeight = useCallback((): void => {
+    const newHeight = getHeight()
+    if (shouldUpdate(newHeight)) {
+      //console.log("onResize (header via updateHeight)")
+      onResize({
+        nextHeaderHeight: newHeight,
+      })
+    }
+  }, [onResize, getHeight, shouldUpdate])
 
-    //updateHeight()
+  useEffect(() => {
+    if (shouldUpdate()) {
+      updateHeight()
+    }
+  }, [])
 
-    return (
-      <>
-        <HeaderElement>
-          <HeaderOuter
+  updateHeight()
+
+  return (
+    <>
+      <HeaderElement>
+        <HeaderOuter
+          finalHeight={headerHeight}
+          initialHeight={initialHeaderHeight}>
+          <HeaderInner
             finalHeight={headerHeight}
-            initialHeight={initialHeaderHeight}>
-            <HeaderInner
-              finalHeight={headerHeight}
-              initialHeight={initialHeaderHeight}
-              css={headerStyle}
-              ref={headerRef}>
-              {onRenderHeader()}
-            </HeaderInner>
-          </HeaderOuter>
-        </HeaderElement>
-        {children}
-      </>
-    )
-  }
-)
+            initialHeight={initialHeaderHeight}
+            css={headerStyle}
+            ref={headerRef}>
+            {onRenderHeader()}
+          </HeaderInner>
+        </HeaderOuter>
+      </HeaderElement>
+      {children}
+    </>
+  )
+})

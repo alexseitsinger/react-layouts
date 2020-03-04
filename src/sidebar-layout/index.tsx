@@ -11,16 +11,16 @@ import { withLayout } from "../hoc"
 import { CSSObject } from "@emotion/core"
 
 export type SidebarLayoutProps = {
-  onRenderSidebar: () => ReactNode,
-  sidebarWidth: string,
-  sidebarContainerStyle?: CSSObject,
-  sidebarVoidStyle?: CSSObject,
-  sidebarBodyStyle?: CSSObject,
+  onRenderSidebar: () => ReactNode
+  sidebarWidth: string
+  sidebarContainerStyle?: CSSObject
+  sidebarVoidStyle?: CSSObject
+  sidebarBodyStyle?: CSSObject
 }
 
 type Props = ContextProps &
   SidebarLayoutProps & {
-    children: ReactNode | ReactNode[],
+    children: ReactNode | ReactNode[]
   }
 
 export const SidebarLayout = withLayout(
