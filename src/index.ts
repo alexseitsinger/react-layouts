@@ -1,9 +1,10 @@
-export {
-  FixedHeaderLayout,
-  withFixedHeaderLayout,
-  SidebarLayout,
-  Main,
-  FooterLayout,
-} from "./fixed-header-layout"
+export { LayoutProvider } from "./provider"
+export { HeaderLayout } from "./header-layout"
+export { SidebarLayout } from "./sidebar-layout"
+export { FooterLayout } from "./footer-layout"
+export { Main } from "./main"
+export { withLayout } from "./hoc"
 
-export { ViewportContainer, ViewportProvider, withViewport } from "./viewport"
+export { ViewportProvider } from "./viewport/provider"
+export { withViewport } from "./viewport/hoc"
+export { ViewportContainer } from "./viewport/container"

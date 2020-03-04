@@ -13,7 +13,7 @@ export const headerLayer = 80
  * always less than that. and above any other zIndex.
  */
 
-export const HeaderContainer = styled.header`
+export const HeaderElement = styled.header`
   position: relative;
   z-index: ${headerLayer};
 `
@@ -42,15 +42,16 @@ export const HeaderInner = styled.div`
   width: 100%;
   ${({ finalHeight, initialHeight }: HeaderInnerProps): SerializedStyles => {
     const hasFinalHeight = finalHeight !== "0px"
+    const height = hasFinalHeight ? finalHeight : initialHeight
     if (hasFinalHeight) {
       return css`
-        height: ${finalHeight};
+        height: ${height};
         position: fixed;
         top: 0;
       `
     }
     return css`
-      min-height: ${initialHeight};
+      min-height: ${height};
     `
   }}
 `

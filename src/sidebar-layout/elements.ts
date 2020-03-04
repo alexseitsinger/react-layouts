@@ -1,7 +1,22 @@
-import styled from "@emotion/styled"
 import { css, SerializedStyles } from "@emotion/core"
+import styled from "@emotion/styled"
 
-import { headerLayer } from "../header/elements"
+import { headerLayer } from "../header-layout/elements"
+
+interface SidebarLayoutMainProps {
+  sidebarWidth: string;
+  mainHeight: string;
+}
+
+export const SidebarLayoutMain = styled.div`
+  ${({
+    mainHeight,
+    sidebarWidth,
+  }: SidebarLayoutMainProps): SerializedStyles => css`
+    margin-right: ${sidebarWidth};
+    min-height: ${mainHeight};
+  `}
+`
 
 interface SidebarLayoutContainerProps {
   sidebarWidth: string;
@@ -23,8 +38,8 @@ interface SidebarContainerProps {
 export const SidebarContainer = styled.aside`
   height: 100%;
   position: fixed;
-  top: 0;
   right: 0;
+  top: 0;
   z-index: ${headerLayer + 1};
   ${({ sidebarWidth }: SidebarContainerProps): SerializedStyles => css`
     width: ${sidebarWidth};
@@ -43,10 +58,15 @@ export const SidebarVoid = styled.div`
 
 interface SidebarBodyProps {
   mainHeight: string;
+  footerHeight: string;
 }
 
 export const SidebarBody = styled.div`
-  ${({ mainHeight }: SidebarBodyProps): SerializedStyles => css`
-    height: ${mainHeight};
-  `}
+  ${({ footerHeight, mainHeight }: SidebarBodyProps): SerializedStyles => {
+    const fullSize = parseInt(mainHeight) + parseInt(footerHeight)
+    const fullHeight = `${fullSize}px`
+    return css`
+      height: ${fullHeight};
+    `
+  }}
 `

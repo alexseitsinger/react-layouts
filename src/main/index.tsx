@@ -1,18 +1,23 @@
 import React, { ReactElement, ReactNode } from "react"
 
 import { MainElement } from "./elements"
-import { FixedHeaderLayoutContextProps as ContextProps } from "../context"
-import { withFixedHeaderLayout } from "../hoc"
+import { LayoutContextProps as ContextProps } from "../context"
+import { withLayout } from "../hoc"
 
-type Props = {
-  isStatic?: boolean,
+const defaultProps = {
+  isStatic: false,
+}
+
+type Props = ContextProps & {
   children: ReactNode | ReactNode[],
-} & ContextProps
+} & Partial<Readonly<typeof defaultProps>>
 
-export const Main = withFixedHeaderLayout(
+export const Main = withLayout(
   ({ isStatic, mainHeight, children }: Props): ReactElement => (
     <MainElement mainHeight={mainHeight} isStatic={isStatic}>
       {children}
     </MainElement>
   )
 )
+
+Main.defaultProps = defaultProps
