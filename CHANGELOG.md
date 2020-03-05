@@ -1,3 +1,26 @@
+<a name="v2.0.0"></a>
+## [v2.0.0](https://github.com/alexseitsinger/react-layouts/compare/v1.1.0...v2.0.0) (2020-03-05)
+
+### Bug Fixes
+- Changes update process. ([ebf3395](https://github.com/alexseitsinger/react-layouts/commit/ebf339538f4bee89c4beee7b2e36df27270e2c7f))
+
+### Code Refactoring
+- Adds new types. ([015735f](https://github.com/alexseitsinger/react-layouts/commit/015735f9ffbf3925cd37769b9258639693b36d15))
+- Changes generic type. ([20a1479](https://github.com/alexseitsinger/react-layouts/commit/20a147963e3e2777e2a1a17ee917c446e961387b))
+- Re-organizes modules. ([f0b7050](https://github.com/alexseitsinger/react-layouts/commit/f0b7050a2f98c84f2ca551ff8bf85ebabeee16b5))
+- Reduces delay. ([490e9e8](https://github.com/alexseitsinger/react-layouts/commit/490e9e8b10e5805a5c9d6bdeddbd80acb9c6acca))
+- Removes unused imports. ([2606b66](https://github.com/alexseitsinger/react-layouts/commit/2606b66f58af108aa2e9894c46d08d6a21797e3c))
+- Renames viewport components. ([8aad9b7](https://github.com/alexseitsinger/react-layouts/commit/8aad9b75e5baa20742cbe6ba2262fa070a7a728d))
+- Specifies correct returntypes. Also uses HTML5 elements. ([da9683f](https://github.com/alexseitsinger/react-layouts/commit/da9683f550639dab626bb0d94aaf8041b5296d92))
+- Updates exports. ([6bfb8ac](https://github.com/alexseitsinger/react-layouts/commit/6bfb8ac770978fc26943201b3b1fe00a78574bea))
+- Updates the Viewport component. ([086b8b3](https://github.com/alexseitsinger/react-layouts/commit/086b8b3de309d7a18dcf1d71e515c82e745b7b2c))
+- Updates types. ([c760e8f](https://github.com/alexseitsinger/react-layouts/commit/c760e8fb6ab4f36a942ec976e00839c9cdab1645))
+- Updates types. ([94ff278](https://github.com/alexseitsinger/react-layouts/commit/94ff2782861fdec0e007f4b274e00dceb8544c2f))
+
+### Features
+- Adds FooterLayout component. ([7f4271a](https://github.com/alexseitsinger/react-layouts/commit/7f4271af314e68dcfca7669e330e7b089098bb99))
+
+
 <a name="v1.1.0"></a>
 ## [v1.1.0](https://github.com/alexseitsinger/react-layouts/compare/v1.0.2...v1.1.0) (2020-02-26)
 
