@@ -5,3 +5,4 @@ export { FooterLayout } from "./footer-layout";
 export { Main } from "./main";
 export { withLayout } from "./hoc";
 export { Viewport } from "./viewport";
+export { setConfig } from "./debug";
