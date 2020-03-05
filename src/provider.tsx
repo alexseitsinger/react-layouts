@@ -157,7 +157,7 @@ export function LayoutProvider({
       setState(heights)
       updates.current.headerHeight = zeroPx
       updates.current.footerHeight = zeroPx
-    }, 2000),
+    }, 1000),
     [setState, getHeights, updates]
   )
 

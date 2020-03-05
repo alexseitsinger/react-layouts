@@ -13,6 +13,7 @@ import { MainElement } from "../main/elements"
 import { LayoutContextProps as ContextProps } from "../context"
 import { isDefined, isBrowser } from "src/utils"
 import { CSSObject } from "@emotion/core"
+import { debugMessage } from "src/debug"
 
 const defaultProps = {
   isFooterStatic: false,
@@ -84,17 +85,17 @@ export const FooterLayout = withLayout(function FooterLayout({
       let nextHeight = newHeight !== undefined ? newHeight : getHeight()
       if (hasHeight()) {
         if (requiresResize(nextHeight)) {
-          //console.log("should update (footer via requiresResize)")
+          debugMessage("should update (footer via requiresResize)")
           return true
         }
-        //console.log("should NOT update (footer via hasHeight)")
+        debugMessage("should NOT update (footer via hasHeight)")
         return false
       }
       if (isNewHeight(nextHeight)) {
-        //console.log("should update (footer via isNewHeight)")
+        debugMessage("should update (footer via isNewHeight)")
         return true
       }
-      //console.log("should NOT update (footer via shouldUpdate)")
+      debugMessage("should NOT update (footer via shouldUpdate)")
       return false
     },
     [getHeight, isNewHeight, hasHeight, siblingHeight, requiresResize]
@@ -103,7 +104,7 @@ export const FooterLayout = withLayout(function FooterLayout({
   const updateHeight = useCallback((): void => {
     const newHeight = getHeight()
     if (shouldUpdate(newHeight)) {
-      //console.log("onResize (footer via updateHeight)")
+      debugMessage("onResize (footer via updateHeight)")
       onResize({
         nextFooterHeight: newHeight,
       })

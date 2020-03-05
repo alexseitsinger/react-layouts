@@ -14,6 +14,7 @@ import { LayoutContextProps as ContextProps } from "../context"
 import { isBrowser, isDefined } from "../utils"
 
 import { HeaderElement, HeaderInner, HeaderOuter } from "./elements"
+import { debugMessage } from "src/debug"
 
 export interface HeaderLayoutProps {
   onRenderHeader: () => ReactNode
@@ -77,17 +78,17 @@ export const HeaderLayout = withLayout(function HeaderLayout({
       let nextHeight = newHeight !== undefined ? newHeight : getHeight()
       if (hasHeight()) {
         if (requiresResize(nextHeight)) {
-          //console.log("should update (header via requiredResize)")
+          debugMessage("should update (header via requiredResize)")
           return true
         }
-        //console.log("should NOT update (header via hasHeight)")
+        debugMessage("should NOT update (header via hasHeight)")
         return false
       }
       if (isNewHeight(nextHeight)) {
-        //console.log("should update (header via isNewHeight)")
+        debugMessage("should update (header via isNewHeight)")
         return true
       }
-      //console.log("should NOT update (header via shouldUpdate)")
+      debugMessage("should NOT update (header via shouldUpdate")
       return false
     },
     [getHeight, isNewHeight, hasHeight, siblingHeight, requiresResize]
@@ -96,7 +97,7 @@ export const HeaderLayout = withLayout(function HeaderLayout({
   const updateHeight = useCallback((): void => {
     const newHeight = getHeight()
     if (shouldUpdate(newHeight)) {
-      //console.log("onResize (header via updateHeight)")
+      debugMessage("onResize (header via updateHeight)")
       onResize({
         nextHeaderHeight: newHeight,
       })
