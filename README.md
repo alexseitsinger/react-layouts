@@ -1,6 +1,6 @@
 # Layouts
 
-Collection of components to make DOM layouts easier to make.
+Layout components to make constructing a page easier.
 
 ## Installation
 
@@ -10,172 +10,170 @@ yarn add @alexseitsinger/react-layouts
 
 ## Exports
 
-#### FixedHeaderLayout
+#### LayoutProvider
+
+Provides initial props to each layout component used throughout the app. Most of the props specified on the individual layout components will override the values provided by the provider.
+
+###### Props
+
+Name                  | Description                                           | Default   | Required?
+---                   | ---                                                   | ---       | ---
+initialViewportHeight | Thie height to use before retrieving it from the DOM. | 0px       | yes, if not specified on layout components
+initialHeaderHeight   | Initial height to use for the header.                 | 0px       | yes, if not specified on `<HeaderLayout />`
+initialFooterHeight   | Initial height to use for the footer.                 | 0px       | yes, if not specified on `<FooterLayout />`
+sidebarWidth          | The width to use for the sidebar.                     | 0px       | yes, if not specified on `<SidebarLayout />`
+onRenderHeader        | Invoked to render the header.                         | undefined | yes, if not specified on `<HeaderLayout />`
+onRenderFooter        | Invoked to render the footer.                         | undefined | yes, if not specified on `<FooterLayout />`
+onRenderSidebar       | Invoked to render the sidebar.                        | undefined | yes, if not specified on `<SidebarLayout />`
+sidebarContainerStyle | Extra css to apply.                                   | undefined | no
+sidebarBodyStyle      | Extra css to apply.                                   | undefined | no
+sidebarVoidStyle      | Extra css to apply.                                   | undefined | no
+headerStyle           | Extra css to apply.                                   | undefined | no
+footerStyle           | Extra css to apply.                                   | undefined | no
+
+#### HeaderLayout
 
 Renders a fixed header at the top of the page.
 
 The header is initially rendered with a `min-height` matching the value of `initialHeaderHeight`. Then, once mounted, the
 header's actual height in the DOM is retrieved and set as `height`, then `position: fixed` gets set.
 
-There is also a `<PageContainer />` component whose `min-height` is always equal to the difference between either
-`initialViewportHeight` or the `document.documentElement` `height` and the header's current `height`.
-
 In the browser, all sizes are updated following each window resize.
 
 ###### Props
 
-Name                  | Description                                           | Default   | Required?
----                   | ---                                                   | ---       | ---
-initialHeaderHeight   | The height to use before retrieving it from the DOM.  | undefined | yes
-initialViewportHeight | Thie height to use before retrieving it from the DOM. | undefined | yes
-renderHeader          | Invoked to render the inner body of the header.       | undefined | yes
-children              | The main page content to render below the header.     | undefined | yes
-headerStyle           | Additional css to apply to the rendered header body.  | undefined | no
-
-###### Example
-
-```javascript
-import { FixedHeaderLayout } from "@alexseitsinger/react-layouts"
-
-const App = () => (
-  <FixedHeaderLayout
-    initialViewportHeight={"600px"}
-    initialHeaderHeight={"40px"}
-    headerStyle={{
-      //...extra styles to apply to header.
-    }}
-    renderHeader={() => <MyCustomHeaderBody />}>
-    <div>Body</div>
-  </FixedHeaderLayout>
-)
-```
-
-#### withFixedHeaderLayout
-
-HOC to serve the dimensions of the layout to other components as props.
-
-###### Example
-
-```javascript
-import { withFixedHeaderLayout } from "@alexseitsinger/react-layouts"
-
-const HomePage = withFixedHeaderLayout(({ viewportHeight, headerHeight, mainHeight }) => (
-  <div style={{ height: mainHeight }}>Content</div>
-))
-```
-
-#### PageContainer
-
-Container component whose `height` is always the difference between either `document.documentElement` or
-`initialViewportHeight` and the header's current `height`.
-
-###### Example
-
-```javascript
-// In app root...
-import { FixedHeaderLayout } from "@alexseitsinger/react-layouts"
-
-const App = () => (
-  <FixedHeaderLayout
-    initialHeaderHeight={"40px"}
-    initialViewportHeight={"600px"}
-    renderHeader={() => <div>Header</div>}>
-    <div>Body</div>
-  </FixedHeaderLayout>
-)
-```
-
-```javascript
-// In page component...
-import { PageContainer } from "@alexseitsinger/react-layouts"
-
-const HomePage = props => (
-  <PageContainer>
-    <div>Content</div>
-  </PageContainer>
-)
-```
+Name                  | Description                                          | Default   | Required?
+---                   | ---                                                  | ---       | ---
+initialViewportHeight | Initial height to use for the viewport.              | undefined | yes, if not specified on `<LayoutProvider />`
+initialHeaderHeight   | The height to use before retrieving it from the DOM. | undefined | yes, if not specified on `<LayoutProvider />`
+onRenderHeader        | Invoked to render the inner body of the header.      | undefined | yes, if not specified on `<LayoutProvider />`
+headerStyle           | Additional css to apply to the rendered header body. | undefined | no
+children              | The main page content to render below the header.    | undefined | yes
 
 #### SidebarLayout
 
-Container with space reserved for a fixed sidebar (on the right). Expects the use of `<FixedHeaderLayout />` somewhere
-above in the component tree.
+Container with space reserved for a fixed sidebar (on the right).
 
 ###### Props
 
-Name                  | Description                                                              | Default   | Required?
----                   | ---                                                                      | ---       | ---
-initialHeaderHeight   | The size (px) to use for the header height before measure it in the DOM. | undefined | yes
-initialViewportHeight | The size (px) to use for the viewport height before measuring the DOM.   | undefined | yes
-renderHeader          | Invoked to render the body of the sidebar.                               | undefined | yes
-children              | The content to render (to the left) of the sidebar.                      | undefined | yes
+Name                  | Description                                                    | Default   | Required?
+---                   | ---                                                            | ---       | ---
+initialViewportHeight | Initial height to use for the viewport.                        | undefined | yes, if not specified on `<LayoutProvider />`
+sidebarWidth          | Width of the sidebar.                                          | 0px       | yes, if not specified on `<LayoutProvider />`
+sidebarContainerStyle | Extra css to apply                                             | undefined | no
+sidebarBodyStyle      | Extra css to apply                                             | undefined | no
+sidebarVoidStyle      | Extra css to apply                                             | undefined | no
+isMainStatic          | Should `<main>` element use `height` instead of `min-height`   | false     | no
+isFooterStatic        | Should `<footer>` element use `height` instead of `min-height` | false     | no
+children              | The content to render (to the left) of the sidebar.            | undefined | yes
 
-###### Example
+#### FooterLayout
+
+Includes a footer element below the main content. Footer height is removed from main element's possible height so it initially fits within the screen.
+
+###### Props
+
+Name                | Description                                                                          | Default   | Required?
+---                 | ---                                                                                  | ---       | ---
+initialFooterHeight | Intitial height (px) to use for the footer before measuring and resizing in the DOM. | undefined | yes, if not specified on `<LayoutProvider />`
+onRenderFooter      | Invoked to render the footer.                                                        | undefined | yes, if not specified on `<LayoutProvider />`
+footerStyle         | Extra css to apply.                                                                  | undefined | no
+isMainStatic        | Should `<main>` use `height` instead of `min-height`?                                | false     | no
+isFooterStatic      | Should `<footer>` use `height` instead of `min-height`?                              | false     | no
+children            | The content to render (above) the footer, as the main page.                          | undefined | yes
+
+#### Main
+
+A container with the remaining height (viewport - header) as either `min-height` or `height` if `isStatic` is true.
+
+###### Props
+
+Name     | Description                                           | Default | Required?
+---      | ---                                                   | ---     | ---
+isStatic | Should `<main>` use `height` instead of `min-height`? | false   | no
+children | The content to render within this element.            | null    | yes
+
+#### withLayout
+
+HOC that supplies the wrapped component with the layout context props.
+
+###### Props Provided
+
+Name                  | Description                                                                       | Overwritable?
+---                   | ---                                                                               | ---
+viewportHeight        | The final measured height(px) of the viewport.                                    | no
+headerHeight          | The final measured height(px) of the header.                                      | no
+footerHeight          | The final measured height(px_ of the footer.                                      | no
+mainHeight            | The final measured height(px) of the main content (viewport - (header + footer)). | no
+initialHeaderHeight   | The initial height(px) to use for the header before measuring.                    | yes
+initialFooterHeight   | The initial height(px) to use for the footer before measuring.                    | yes
+onResize              | Function used to update `<LayoutProvider />` from each layout component.          | no
+onRenderHeader        | Function used by `<HeaderLayout />` to render its content.                        | yes
+onRenderFooter        | Function used by `<FooterLayout />` to render its content.                        | yes
+onRenderSidebar       | Function used by `<SidebarLayout />` to render its content.                       | yes
+headerStyle           | Extra css to use.                                                                 | yes
+footerStyle           | Extra css to use.                                                                 | yes
+sidebarWidth          | The width(px) to use.                                                             | yes
+sidebarContainerStyle | Extra css to use                                                                  | yes
+sidebarBodyStyle      | Extra css to use.                                                                 | yes
+sidebarVoidStyle      | Extra css to use.                                                                 | yes
+
+#### Viewport
+
+Container with `min-height` set to the height of the browser window (or the initial value). If `isStatic` is true, will use `height` instead.
+
+## Example
 
 ```javascript
-import { FixedHeaderLayout, SidebarLayout } from "@alexseitsinger/react-layouts"
+// In app root
+import { LayoutProvider } from "@alexseitsinger/react-layouts"
 
 const App = () => (
-  <FixedHeaderLayout
-    initialHeaderHeight={"40px"}
+  <LayoutProvider
     initialViewportHeight={"600px"}
-    renderHeader={() => <div>Header</div>}>
-    <SidebarLayout
-      sidebarWidth={"300px"}
-      renderSidebar={() => <div>Sidebar</div>}>
-      <div>Main page content</div>
-    </SidebarLayout>
-  </FixedHeaderLayout>
+    initialHeaderHeight={"30px"}
+    initialFooterHeight={"10px"}
+    sidebarWidth={"100px"}
+    onRenderFooter={() => (
+      <div>Footer here since it never changes</div>
+      )}>
+    <Router>
+      <Route path={"/"} exact component={HomePage} />
+      <Route path={"*"} exact component={NotFoundPage} />
+    </Router>
+  </LayoutProvider>
 )
 ```
 
-#### ViewportProvider
-
-Provides a context with values for `viewportHeight` and `viewportWidth` to the connected components.
-
-###### Example
-
 ```javascript
-const App = () => (
-  <ViewportProvider initialHeight={"600px"} initialWidth={"600px"}>
-    <div>Some DOM stuff</div>
-  </ViewportProvider>
-)
-```
+import { HeaderLayout, SidebarLayout, FooterLayout } from "@alexseitsinger/react-layouts"
 
-#### ViewportContainer
-
-A component whose `min-height` is automatically set to match the current value of either `initialHeight` or
-`document.documentElement` `clientHeight`. Expects the use of `ViewportProvider` somewhere above this in the component
-tree.
-
-###### Example
-
-```javascript
-const App () => (
-  <ViewportProvider initialHeight={"600px"} initialWidth={"600px"}>
-    <div id="body">
-      <ViewportContainer>
-        <div>Some other content</div>
-      </ViewportContainer>
-    </div>
-  </ViewportProvider>
-)
-```
-
-#### withViewport
-
-HOC component to add the `viewportHeight` and `viewportWidth` props to the wrapped component. Expects the use of
-`ViewportProvider` somewhere above in the component tree.
-
-###### Example
-
-```javascript
-const HomePage = withViewport(
-  ({ viewportHeight, viewportWidth }) => (
-    <div style={{ height: viewportHeight, viewportWidth }}>
-      Some page content...
-    </div>
+function HomePage(props) {
+  return (
+    <HeaderLayout
+      renderHeader={() => (
+        <div>Header content</div>
+      )}>
+      <SidebarLayout
+        onRenderSidebar={() => (
+          <div>Sidebar content</div>
+        )}>
+        <FooterLayout>
+          <div>This page content will include a footer below it</div>
+        </FooterLayout>
+      </SidebarLayout>
+    </HeaderLayout>
   )
-)
+  ```
+
+```javascript
+import { Viewport } from "@alexseitsinger/react-layouts"
+
+function NotFoundPage(props) {
+  return (
+    <Viewport>
+      Something that has the height of the browser.
+    </Viewport>
+  )
+}
 ```
