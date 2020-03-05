@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement } from "react"
+import React, { ComponentType, ReactElement, ElementType } from "react"
 
 import {
   LayoutContext as Context,
@@ -24,6 +24,7 @@ export function withLayout<T extends ContextProps>(
           sidebarContainerStyle,
           sidebarVoidStyle,
           sidebarWidth,
+          initialViewportHeight,
           initialFooterHeight,
           initialHeaderHeight,
           footerHeight,
@@ -35,6 +36,7 @@ export function withLayout<T extends ContextProps>(
           <Component
             initialHeaderHeight={initialHeaderHeight}
             initialFooterHeight={initialFooterHeight}
+            initialViewportHeight={initialViewportHeight}
             onRenderHeader={onRenderHeader}
             onRenderSidebar={onRenderSidebar}
             onRenderFooter={onRenderFooter}

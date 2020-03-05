@@ -17,27 +17,27 @@ import { SidebarLayoutProps } from "src/sidebar-layout"
 import { HeaderLayoutProps } from "src/header-layout"
 import { FooterLayoutProps } from "src/footer-layout"
 
-const zeroHeight = "0px"
+const zeroPx = "0px"
 
 export const defaultProps = {
-  initialHeaderHeight: zeroHeight,
-  initialFooterHeight: zeroHeight,
-  sidebarWidth: zeroHeight,
+  initialViewportHeight: zeroPx,
+  initialHeaderHeight: zeroPx,
+  initialFooterHeight: zeroPx,
+  sidebarWidth: zeroPx,
 }
 
 type Props = {
   children: ReactNode | ReactNode[]
-  initialViewportHeight: string
 } & Partial<SidebarLayoutProps> &
   Partial<FooterLayoutProps> &
   Partial<HeaderLayoutProps> &
   Readonly<typeof defaultProps>
 
 export const initialState = {
-  viewportHeight: zeroHeight,
-  headerHeight: zeroHeight,
-  mainHeight: zeroHeight,
-  footerHeight: zeroHeight,
+  viewportHeight: zeroPx,
+  headerHeight: zeroPx,
+  mainHeight: zeroPx,
+  footerHeight: zeroPx,
 }
 
 type State = typeof initialState
@@ -132,19 +132,19 @@ export function LayoutProvider({
     const keys = Object.keys(props)
     const key = "nextFooterHeight"
     const isChange = keys.includes(key)
-    return isChange && props[key] !== zeroHeight
+    return isChange && props[key] !== zeroPx
   }, [])
 
   const isHeaderChange = useCallback((props: HeightProps) => {
     const keys = Object.keys(props)
     const key = "nextHeaderHeight"
     const isChange = keys.includes(key)
-    return isChange && props[key] !== zeroHeight
+    return isChange && props[key] !== zeroPx
   }, [])
 
   const updates = useRef({
-    headerHeight: zeroHeight,
-    footerHeight: zeroHeight,
+    headerHeight: zeroPx,
+    footerHeight: zeroPx,
   })
 
   const saveUpdates = useCallback(
@@ -155,8 +155,8 @@ export function LayoutProvider({
         nextFooterHeight: footerHeight,
       })
       setState(heights)
-      updates.current.headerHeight = zeroHeight
-      updates.current.footerHeight = zeroHeight
+      updates.current.headerHeight = zeroPx
+      updates.current.footerHeight = zeroPx
     }, 2000),
     [setState, getHeights, updates]
   )
@@ -180,7 +180,7 @@ export function LayoutProvider({
           if (nextHeaderHeight === currentHeaderHeight) {
             return
           }
-          if (updatedHeaderHeight === zeroHeight) {
+          if (updatedHeaderHeight === zeroPx) {
             updates.current.headerHeight = nextHeaderHeight
           }
         }
@@ -188,7 +188,7 @@ export function LayoutProvider({
           if (nextFooterHeight === currentFooterHeight) {
             return
           }
-          if (updatedFooterHeight === zeroHeight) {
+          if (updatedFooterHeight === zeroPx) {
             updates.current.footerHeight = nextFooterHeight
           }
         }
@@ -221,6 +221,7 @@ export function LayoutProvider({
     onRenderHeader,
     onRenderFooter,
     onRenderSidebar,
+    initialViewportHeight,
     initialHeaderHeight,
     initialFooterHeight,
     sidebarWidth,
