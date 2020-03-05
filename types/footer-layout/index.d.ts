@@ -13,5 +13,5 @@ export declare type FooterLayoutProps = {
 declare type Props = ContextProps & FooterLayoutProps & {
     children: ReactNode | ReactNode[];
 } & Partial<Readonly<typeof defaultProps>>;
-export declare const FooterLayout: React.ComponentType<import("../types").Partialize<Props, "mainHeight" | "sidebarWidth" | "headerHeight" | "footerHeight" | "onRenderHeader" | "onRenderFooter" | "onRenderSidebar" | "sidebarVoidStyle" | "sidebarBodyStyle" | "sidebarContainerStyle" | "headerStyle" | "footerStyle" | "onResize" | "initialFooterHeight" | "initialHeaderHeight" | "viewportHeight">>;
+export declare const FooterLayout: React.ComponentType<import("../types").Partialize<Props, "mainHeight" | "sidebarWidth" | "headerHeight" | "footerHeight" | "onRenderHeader" | "onRenderFooter" | "onRenderSidebar" | "sidebarVoidStyle" | "sidebarBodyStyle" | "sidebarContainerStyle" | "headerStyle" | "footerStyle" | "onResize" | "initialFooterHeight" | "initialHeaderHeight" | "initialViewportHeight" | "viewportHeight">>;
 export {};

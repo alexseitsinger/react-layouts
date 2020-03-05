@@ -14,5 +14,6 @@ export declare type LayoutContextProps = {
     onResize: (p: HeightProps) => void;
     initialFooterHeight: string;
     initialHeaderHeight: string;
+    initialViewportHeight: string;
 } & typeof initialState & typeof defaultProps;
 export declare const LayoutContext: React.Context<{}>;
