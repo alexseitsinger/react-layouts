@@ -1,3 +1,15 @@
+<a name="v2.1.0"></a>
+## [v2.1.0](https://github.com/alexseitsinger/react-layouts/compare/v2.0.0...v2.1.0) (2020-03-05)
+
+### Code Refactoring
+- Converts console.log to debugMessage. ([b0db05f](https://github.com/alexseitsinger/react-layouts/commit/b0db05fea0ce55f2c81e5b14e86eeb0a29cbeac8))
+- Renames method. ([b7b91c1](https://github.com/alexseitsinger/react-layouts/commit/b7b91c14bb103443aaacb7d2d10d5dddf4dd8953))
+- Updates types. ([b177bab](https://github.com/alexseitsinger/react-layouts/commit/b177bab88b867565a05242e761c1989ee3734ac4))
+
+### Features
+- Adds debug module. ([15e5733](https://github.com/alexseitsinger/react-layouts/commit/15e57333ba1eb1909624cf1a5396effacceb110b))
+
+
 <a name="v2.0.0"></a>
 ## [v2.0.0](https://github.com/alexseitsinger/react-layouts/compare/v1.1.0...v2.0.0) (2020-03-05)
 
