@@ -147,7 +147,7 @@ export function LayoutProvider({
     footerHeight: zeroPx,
   })
 
-  const saveUpdates = useCallback(
+  const applyUpdates = useCallback(
     debounce(() => {
       const { headerHeight, footerHeight } = updates.current
       const heights = getHeights({
@@ -157,7 +157,7 @@ export function LayoutProvider({
       setState(heights)
       updates.current.headerHeight = zeroPx
       updates.current.footerHeight = zeroPx
-    }, 1000),
+    }, 100),
     [setState, getHeights, updates]
   )
 
@@ -192,10 +192,10 @@ export function LayoutProvider({
             updates.current.footerHeight = nextFooterHeight
           }
         }
-        saveUpdates()
+        applyUpdates()
       }, 1)
     },
-    [getHeights, setState, isHeaderChange, isFooterChange, saveUpdates]
+    [getHeights, setState, isHeaderChange, isFooterChange, applyUpdates]
   )
 
   const handleResize = useCallback(
