@@ -19,39 +19,44 @@ export const HeaderElement = styled.header`
 `
 
 export interface HeaderOuterProps {
-  finalHeight: string;
-  initialHeight: string;
+  finalHeight: string
+  initialHeight: string
 }
 
 export const HeaderOuter = styled.div`
   ${({ finalHeight, initialHeight }: HeaderOuterProps): SerializedStyles => {
-    const hasFinalHeight = finalHeight !== "0px"
-    const height = hasFinalHeight ? finalHeight : initialHeight
+    if (finalHeight !== "0px") {
+      if (finalHeight !== initialHeight) {
+        return css`
+          height: ${finalHeight};
+        `
+      }
+    }
     return css`
-      height: ${height};
+      height: auto;
     `
   }}
 `
 
 export interface HeaderInnerProps {
-  finalHeight: string;
-  initialHeight: string;
+  finalHeight: string
+  initialHeight: string
 }
 
 export const HeaderInner = styled.div`
   width: 100%;
   ${({ finalHeight, initialHeight }: HeaderInnerProps): SerializedStyles => {
-    const hasFinalHeight = finalHeight !== "0px"
-    const height = hasFinalHeight ? finalHeight : initialHeight
-    if (hasFinalHeight) {
-      return css`
-        height: ${height};
-        position: fixed;
-        top: 0;
-      `
+    if (finalHeight !== "0px") {
+      if (finalHeight !== initialHeight) {
+        return css`
+          height: ${finalHeight};
+          position: fixed;
+          top: 0;
+        `
+      }
     }
     return css`
-      min-height: ${height};
+      height: auto;
     `
   }}
 `

@@ -4,6 +4,8 @@
  * Node-based variables to assert the environment.
  */
 
+export const getSize = (n: string | number): number => Math.max(0, Math.round(parseFloat(String(n))))
+
 const hasGlobal = typeof global !== "undefined"
 
 const hasProcess = typeof process !== "undefined"

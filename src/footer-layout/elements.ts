@@ -2,9 +2,9 @@ import { css, SerializedStyles } from "@emotion/core"
 import styled from "@emotion/styled"
 
 interface FooterElementProps {
-  initialHeight: string;
-  finalHeight: string;
-  isStatic?: boolean;
+  initialHeight: string
+  finalHeight: string
+  isStatic?: boolean
 }
 
 export const FooterElement = styled.footer`
@@ -13,14 +13,13 @@ export const FooterElement = styled.footer`
     initialHeight,
     isStatic,
   }: FooterElementProps): SerializedStyles => {
-    const height = finalHeight !== "0px" ? finalHeight : initialHeight
-    if (isStatic !== undefined && isStatic) {
+    if (finalHeight !== "0px") {
       return css`
-        height: ${height};
+        height: ${finalHeight};
       `
     }
     return css`
-      min-height: ${height};
+      height: auto;
     `
   }}
 `

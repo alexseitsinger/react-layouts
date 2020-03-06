@@ -8,7 +8,7 @@ import React, {
 } from "react"
 import { debounce } from "underscore"
 
-import { isBrowser } from "./utils"
+import { isBrowser, getSize } from "./utils"
 import {
   LayoutContext as Context,
   LayoutContextProps as ContextProps,
@@ -16,6 +16,7 @@ import {
 import { SidebarLayoutProps } from "src/sidebar-layout"
 import { HeaderLayoutProps } from "src/header-layout"
 import { FooterLayoutProps } from "src/footer-layout"
+import { debugMessage } from "src/debug"
 
 const zeroPx = "0px"
 
@@ -63,9 +64,9 @@ export function LayoutProvider({
   sidebarContainerStyle,
 }: Props): ReactElement {
   const [state, setState] = useState(initialState)
-  const initialHeaderSize = parseInt(initialHeaderHeight)
-  const initialViewportSize = parseInt(initialViewportHeight)
-  const initialFooterSize = parseInt(initialFooterHeight)
+  const initialHeaderSize = getSize(initialHeaderHeight)
+  const initialViewportSize = getSize(initialViewportHeight)
+  const initialFooterSize = getSize(initialFooterHeight)
 
   const getViewportHeight = useCallback((): string => {
     let size = initialViewportSize
@@ -77,11 +78,11 @@ export function LayoutProvider({
 
   const getHeaderHeight = useCallback(
     (newSize?: string): string => {
-      let size = initialHeaderSize
+      let size: string | number = initialHeaderSize
       if (newSize !== undefined) {
-        size = parseInt(newSize)
+        size = newSize
       }
-      size = Math.max(0, size)
+      size = getSize(size)
       return `${size}px`
     },
     [initialHeaderSize]
@@ -89,11 +90,11 @@ export function LayoutProvider({
 
   const getFooterHeight = useCallback(
     (newSize?: string): string => {
-      let size = initialFooterSize
+      let size: string | number = initialFooterSize
       if (newSize !== undefined) {
-        size = parseInt(newSize)
+        size = newSize
       }
-      size = Math.max(0, size)
+      size = getSize(size)
       return `${size}px`
     },
     [initialFooterSize]
@@ -101,11 +102,11 @@ export function LayoutProvider({
 
   const getMainHeight = useCallback(
     ({ nextHeaderHeight, nextFooterHeight }: HeightProps): string => {
-      const viewportSize = parseInt(getViewportHeight())
-      const headerSize = parseInt(getHeaderHeight(nextHeaderHeight))
-      const footerSize = parseInt(getFooterHeight(nextFooterHeight))
+      const viewportSize = getSize(getViewportHeight())
+      const headerSize = getSize(getHeaderHeight(nextHeaderHeight))
+      const footerSize = getSize(getFooterHeight(nextFooterHeight))
       const offset = headerSize + footerSize
-      const size = Math.max(0, viewportSize - offset)
+      const size = getSize(viewportSize - offset)
       return `${size}px`
     },
     [getHeaderHeight, getFooterHeight]
@@ -149,51 +150,54 @@ export function LayoutProvider({
 
   const applyUpdates = useCallback(
     debounce(() => {
-      const { headerHeight, footerHeight } = updates.current
-      const heights = getHeights({
-        nextHeaderHeight: headerHeight,
-        nextFooterHeight: footerHeight,
+      const {
+        headerHeight: updatedHeaderHeight,
+        footerHeight: updatedFooterHeight,
+      } = updates.current
+
+      const newHeights = getHeights({
+        nextHeaderHeight: updatedHeaderHeight,
+        nextFooterHeight: updatedFooterHeight,
       })
-      setState(heights)
+
+      debugMessage(`newHeights: ${newHeights}`)
+
+      setState(newHeights)
+
       updates.current.headerHeight = zeroPx
       updates.current.footerHeight = zeroPx
-    }, 100),
+    }, 10),
     [setState, getHeights, updates]
   )
 
   const updateHeights = useCallback(
-    (props: HeightProps): void => {
+    ({ nextHeaderHeight, nextFooterHeight }: HeightProps): void => {
       setTimeout(() => {
-        const {
-          headerHeight: nextHeaderHeight,
-          footerHeight: nextFooterHeight,
-        } = getHeights(props)
-        const {
-          headerHeight: updatedHeaderHeight,
-          footerHeight: updatedFooterHeight,
-        } = updates.current
-        const {
-          headerHeight: currentHeaderHeight,
-          footerHeight: currentFooterHeight,
-        } = state
-        if (isHeaderChange(props)) {
-          if (nextHeaderHeight === currentHeaderHeight) {
+        debugMessage("updateHeights()")
+
+        if (nextHeaderHeight !== undefined) {
+          if (nextHeaderHeight === state.headerHeight) {
             return
           }
-          if (updatedHeaderHeight === zeroPx) {
-            updates.current.headerHeight = nextHeaderHeight
+          updates.current.headerHeight = nextHeaderHeight
+          if (state.footerHeight !== zeroPx) {
+            updates.current.footerHeight = state.footerHeight
           }
         }
-        if (isFooterChange(props)) {
-          if (nextFooterHeight === currentFooterHeight) {
+
+        if (nextFooterHeight !== undefined) {
+          if (nextFooterHeight === state.footerHeight) {
             return
           }
-          if (updatedFooterHeight === zeroPx) {
-            updates.current.footerHeight = nextFooterHeight
+
+          updates.current.footerHeight = nextFooterHeight
+          if (state.headerHeight !== zeroPx) {
+            updates.current.headerHeight = state.headerHeight
           }
         }
-        applyUpdates()
       }, 1)
+
+      applyUpdates()
     },
     [getHeights, setState, isHeaderChange, isFooterChange, applyUpdates]
   )

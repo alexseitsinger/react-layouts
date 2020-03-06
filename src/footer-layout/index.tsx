@@ -45,60 +45,70 @@ export const FooterLayout = withLayout(function FooterLayout({
 }: Props): ReactElement {
   const footerRef = useRef<HTMLDivElement>(null)
   const { current } = footerRef
-  const zeroHeight = "0px"
+  const zeroPx = "0px"
   const currentHeight = footerHeight
   const siblingHeight = headerHeight
+  const initialHeight = initialFooterHeight
 
-  const hasHeight = useCallback((): boolean => {
-    return isDefined(currentHeight) && currentHeight !== zeroHeight
-  }, [currentHeight, zeroHeight])
-
-  const isNewHeight = useCallback(
-    (nextHeight: string): boolean => {
-      return nextHeight !== headerHeight && nextHeight !== zeroHeight
-    },
-    [headerHeight, zeroHeight]
-  )
+  const hasRealHeight = useCallback((): boolean => {
+    return (
+      isDefined(currentHeight) &&
+      currentHeight !== initialHeight &&
+      currentHeight !== zeroPx
+    )
+  }, [currentHeight, zeroPx])
 
   const getHeight = useCallback((): string => {
     if (isBrowser && current !== null) {
       return getStyle(current, "height")
     }
-    if (hasHeight()) {
+    if (hasRealHeight()) {
       return currentHeight
     }
-    return initialFooterHeight
-  }, [initialFooterHeight, currentHeight, current, hasHeight])
+    return initialHeight
+  }, [initialHeight, currentHeight, current, hasRealHeight, zeroPx])
 
   const requiresResize = useCallback(
     (nextHeight?: string): boolean => {
-      const height = nextHeight !== undefined ? nextHeight : zeroHeight
-      const nextSize = parseInt(height)
-      const currentSize = parseInt(currentHeight)
-      return nextSize > currentSize
+      const height = nextHeight !== undefined ? nextHeight : getHeight()
+      switch (height) {
+        default: {
+          return true
+        }
+        case currentHeight:
+        case initialHeight: {
+          return false
+        }
+      }
     },
-    [getHeight, currentHeight]
+    [getHeight, currentHeight, initialHeight]
   )
 
   const shouldUpdate = useCallback(
     (newHeight?: string): boolean => {
       let nextHeight = newHeight !== undefined ? newHeight : getHeight()
-      if (hasHeight()) {
+      debugMessage(`nextHeight (footer): ${nextHeight}`)
+      if (hasRealHeight()) {
         if (requiresResize(nextHeight)) {
-          debugMessage("should update (footer via requiresResize)")
+          debugMessage("should update footer (requiresResize)")
           return true
         }
-        debugMessage("should NOT update (footer via hasHeight)")
+        debugMessage("should NOT update footer (hasRealHeight)")
         return false
       }
-      if (isNewHeight(nextHeight)) {
-        debugMessage("should update (footer via isNewHeight)")
-        return true
+      if (currentHeight === initialHeight) {
+        debugMessage("current === initial (footer)")
+        if (nextHeight !== initialHeight) {
+          debugMessage("should update footer (next !== initial)")
+          return true
+        }
+        debugMessage("should NOT update footer (current === initial")
+        return false
       }
-      debugMessage("should NOT update (footer via shouldUpdate)")
-      return false
+      debugMessage("should update footer (shouldUpdate)")
+      return true
     },
-    [getHeight, isNewHeight, hasHeight, siblingHeight, requiresResize]
+    [getHeight, initialHeight, hasRealHeight, siblingHeight, requiresResize]
   )
 
   const updateHeight = useCallback((): void => {
