@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react"
 import { CSSObject } from "@emotion/core"
 import { HeightProps, initialState, defaultProps } from "./provider"
+import { createPureContext } from "react-shallow-context"
 
 export const defaultContext = {}
 
@@ -20,4 +21,4 @@ export type LayoutContextProps = {
 } & typeof initialState &
   typeof defaultProps
 
-export const LayoutContext = React.createContext(defaultContext)
+export const LayoutContext = createPureContext(defaultContext)
