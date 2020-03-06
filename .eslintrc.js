@@ -12,7 +12,7 @@ module.exports = {
     },
     {
       files: ["package.json"],
-      ...configs.packageJson,
+      ...configs.jsonPackage,
     },
     {
       files: ["*.md"],
