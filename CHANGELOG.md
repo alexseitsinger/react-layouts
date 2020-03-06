@@ -1,3 +1,14 @@
+<a name="v2.1.1"></a>
+## [v2.1.1](https://github.com/alexseitsinger/react-layouts/compare/v2.1.0...v2.1.1) (2020-03-06)
+
+### Bug Fixes
+- Fixes resizing. ([3d4cc21](https://github.com/alexseitsinger/react-layouts/commit/3d4cc21afc82207b8797f17b983da5c939bf7225))
+- Uses min-height so we can resize. ([a7878ea](https://github.com/alexseitsinger/react-layouts/commit/a7878ea93c0fd45d9f4f5f7d6fa6583673a8ed0a))
+
+### Code Refactoring
+- Updates types. ([ec83fbc](https://github.com/alexseitsinger/react-layouts/commit/ec83fbcd82b204ef544ce62a87ba238a973ede12))
+
+
 <a name="v2.1.0"></a>
 ## [v2.1.0](https://github.com/alexseitsinger/react-layouts/compare/v2.0.0...v2.1.0) (2020-03-05)
 
