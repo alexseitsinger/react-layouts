@@ -32,8 +32,9 @@ export const HeaderOuter = styled.div`
         `
       }
     }
+    // If we don't use a min-height here, the elements get stuck at the initial height.
     return css`
-      height: auto;
+      min-height: ${initialHeight};
     `
   }}
 `
@@ -56,7 +57,7 @@ export const HeaderInner = styled.div`
       }
     }
     return css`
-      height: auto;
+      min-height: ${initialHeight};
     `
   }}
 `

@@ -14,12 +14,14 @@ export const FooterElement = styled.footer`
     isStatic,
   }: FooterElementProps): SerializedStyles => {
     if (finalHeight !== "0px") {
-      return css`
-        height: ${finalHeight};
-      `
+      if (finalHeight !== initialHeight) {
+        return css`
+          height: ${finalHeight};
+        `
+      }
     }
     return css`
-      height: auto;
+      min-height: ${initialHeight};
     `
   }}
 `
