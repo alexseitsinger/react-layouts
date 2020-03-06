@@ -1,3 +1,10 @@
+<a name="v2.2.0"></a>
+## [v2.2.0](https://github.com/alexseitsinger/react-layouts/compare/v2.1.1...v2.2.0) (2020-03-06)
+
+### Features
+- Uses pure context instead. ([ad2ee39](https://github.com/alexseitsinger/react-layouts/commit/ad2ee39b4d81a7c9da8cd3dd7bf2497a5efa3e9b))
+
+
 <a name="v2.1.1"></a>
 ## [v2.1.1](https://github.com/alexseitsinger/react-layouts/compare/v2.1.0...v2.1.1) (2020-03-06)
 
