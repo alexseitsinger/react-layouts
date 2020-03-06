@@ -15,7 +15,7 @@ expect.extend(matchers)
 jest.setTimeout(10000)
 
 describe("FooterLayout", () => {
-  it.only("should render with props provided directly", async () => {
+  it("should render with props provided directly", async () => {
     await act(async () => {
       const wrapper = mount(
         <LayoutProvider initialViewportHeight={"600px"}>
@@ -54,7 +54,7 @@ describe("FooterLayout", () => {
       await waitForExpect(() => {
         wrapper.update()
 
-        expect(wrapper.find(MainElement)).toHaveStyleRule("min-height", "560px")
+        expect(wrapper.find(MainElement)).toHaveStyleRule("height", "560px")
         expect(wrapper.find(FooterElement)).toHaveStyleRule(
           "min-height",
           "40px"

@@ -16,6 +16,8 @@ import { matchers } from "jest-emotion"
 
 expect.extend(matchers)
 
+jest.setTimeout(10000)
+
 describe("FullLayout", () => {
   it("should render HeaderLayout with SidebarLayout with props passed to each component", async () => {
     await act(async () => {
@@ -50,7 +52,7 @@ describe("FullLayout", () => {
         expect(wrapper.find("div#main")).toHaveLength(1)
         expect(wrapper.find("div#sidebar")).toHaveLength(1)
         expect(wrapper.find("div#footer")).toHaveLength(1)
-        expect(wrapper.find(HeaderInner)).toHaveStyleRule("height", "40px")
+        expect(wrapper.find(HeaderInner)).toHaveStyleRule("min-height", "40px")
         expect(wrapper.find(SidebarLayoutMain)).toHaveStyleRule(
           "margin-right",
           "300px"

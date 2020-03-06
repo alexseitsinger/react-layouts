@@ -30,7 +30,7 @@ describe("HeaderLayout", () => {
       await waitForExpect(() => {
         wrapper.update()
         expect(wrapper.find("div#header")).toHaveLength(1)
-        expect(wrapper.find(HeaderInner)).toHaveStyleRule("height", "40px")
+        expect(wrapper.find(HeaderInner)).toHaveStyleRule("min-height", "40px")
       })
     })
   })
@@ -51,7 +51,7 @@ describe("HeaderLayout", () => {
       await waitForExpect(() => {
         wrapper.update()
         expect(wrapper.find("div#header")).toHaveLength(1)
-        expect(wrapper.find(HeaderInner)).toHaveStyleRule("height", "40px")
+        expect(wrapper.find(HeaderInner)).toHaveStyleRule("min-height", "40px")
       })
     })
   })
@@ -78,7 +78,7 @@ describe("HeaderLayout", () => {
         wrapper.update()
         expect(wrapper.find("div#header-1")).toHaveLength(0)
         expect(wrapper.find("div#header-2")).toHaveLength(1)
-        expect(wrapper.find(HeaderInner)).toHaveStyleRule("height", "20px")
+        expect(wrapper.find(HeaderInner)).toHaveStyleRule("min-height", "20px")
       })
     })
   })
